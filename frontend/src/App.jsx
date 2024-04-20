@@ -1,6 +1,6 @@
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
 import {Home} from './pages/Home'
-import { SignUp } from './pages/SignUp'
+
 import { SignIn } from './pages/SignIn'
 import { About } from './pages/About'
 import { Profile } from './pages/Profile'
@@ -10,6 +10,7 @@ import { Spaces } from './pages/Spaces'
 import { Services } from './pages/Services'
 import { Events } from './pages/Events'
 import { Packages } from './pages/Packages'
+import SignUp from './pages/SignUp'
 
 export const App = () => {
   return <BrowserRouter>
