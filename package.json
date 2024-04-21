@@ -12,9 +12,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+<<<<<<< HEAD
     "cors": "^2.8.5",
+=======
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+>>>>>>> origin/main
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.3.2",
     "nodemon": "^3.1.0"
   }
