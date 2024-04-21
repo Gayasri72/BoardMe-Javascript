@@ -1,7 +1,8 @@
+// src/pages/ContactUs.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
 
-export const ContactUs = () => {
+const ContactUs = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -17,7 +18,7 @@ export const ContactUs = () => {
     e.preventDefault();
     try {
       // Send form data to the contact us endpoint
-      await axios.post('/ContactUs', formData); // Update endpoint to match your backend route
+      await axios.post('/api/contact', formData); // Update endpoint to match your backend route
       // Clear the form after successful submission
       setFormData({ name: '', email: '', message: '' });
       // Set contactSent to true to display success message
