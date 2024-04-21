@@ -36,9 +36,9 @@ import {
             <h6 className="font-bold text-[#41A4FF]">Support</h6>
             <ul className="mt-2 font-light">
               <li className="py-2 text-sm">
-              <Link to='/contact-us'>
-                Contact us
-              </Link>
+                <Link to='/ContactUs'>
+                  Contact us
+                </Link>
               </li>
               <li className="py-2 text-sm">
                 <Link to='/aboutus'>

@@ -10,7 +10,7 @@ import { Spaces } from './pages/Spaces'
 import { Services } from './pages/Services'
 import { Events } from './pages/Events'
 import { Packages } from './pages/Packages'
-import ContactUs from './pages/ContactUs';
+import ContactUs from './pages/ContactUs/ContactUs'
 
 
 export const App = () => {
@@ -26,8 +26,7 @@ export const App = () => {
     <Route path='/services' element={<Services/>}/>
     <Route path='/events' element={<Events/>}/>
     <Route path='/packages' element={<Packages/>}/>
-    <Route path="/contact-us" element={<ContactUs />} />
-
+    <Route path='/ContactUs' element={<ContactUs/>}/>
 
   </Routes>
   <Footer/>
