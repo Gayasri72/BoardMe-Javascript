@@ -10,6 +10,7 @@ import { Spaces } from './pages/Spaces'
 import { Services } from './pages/Services'
 import { Events } from './pages/Events'
 import { Packages } from './pages/Packages'
+import { ContactUs } from './pages/ContactUs'
 
 export const App = () => {
   return <BrowserRouter>
@@ -24,6 +25,7 @@ export const App = () => {
     <Route path='/services' element={<Services/>}/>
     <Route path='/events' element={<Events/>}/>
     <Route path='/packages' element={<Packages/>}/>
+    <Route path='/ContactUs' element={<ContactUs/>}/>
 
   </Routes>
   <Footer/>
