@@ -10,6 +10,7 @@ import { Events } from "./pages/Events";
 import { Packages } from "./pages/Packages";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
+import PrivateRoute from './components/PrivateRoute';
 
 export const App = () => {
   return (
@@ -20,7 +21,9 @@ export const App = () => {
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/about" element={<About />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route element={<PrivateRoute />}>
+          <Route path='/profile' element={<Profile />} />
+        </Route>
         <Route path="/spaces" element={<Spaces />} />
         <Route path="/services" element={<Services />} />
         <Route path="/events" element={<Events />} />

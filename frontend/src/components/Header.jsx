@@ -1,9 +1,10 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import { useSelector } from "react-redux";
 
 const inside_nav = [
   {
@@ -21,6 +22,7 @@ const inside_nav = [
 ];
 
 const Header = () => {
+  const { currentUser } = useSelector((state) => state.user);
   const [nav, setNav] = useState(true);
 
   const handleNav = () => {
@@ -83,17 +85,25 @@ const Header = () => {
         <Link to="/listing">Listings</Link>
       </div>
       <div className="items-center space-x-3 hidden md:flex">
-        <Link
-          to="/sign-in"
-          className="px-4 py-2 text-white font-bold bg-[#41A4FF] text-center hover:bg-blue-500 cursor-pointer rounded-md"
-        >
-          Sign in
-        </Link>
-        <Link
-          to="/sign-up"
-          className="px-4 py-2 text-white font-bold bg-gray-800 text-center hover:bg-gray-600 cursor-pointer rounded-md"
-        >
-          Sign up
+        <Link to="/profile">
+          {currentUser ? (
+            <img
+              className="rounded-full h-7 w-7 object-cover"
+              src={currentUser.avatar}
+              alt="profile"
+            />
+          ) : (
+            <>
+              <li className="px-4 py-2 text-white font-bold bg-[#41A4FF] text-center hover:bg-blue-500 cursor-pointer rounded-md">
+                {" "}
+                Sign in
+              </li>
+              <li className="px-4 py-2 text-white font-bold bg-gray-800 text-center hover:bg-gray-600 cursor-pointer rounded-md">
+                {" "}
+                Sign up
+              </li>
+            </>
+          )}
         </Link>
       </div>
       <div onClick={handleNav} className="block md:hidden">
@@ -163,17 +173,26 @@ const Header = () => {
             <Link to="/listing">Listings</Link>
           </li>
           <li className="p-4 mt-8">
-            <Link
-              to="/sign-in"
-              className="px-3 py-2 text-sm text-white font-bold bg-[#41A4FF] text-center hover:bg-blue-500 cursor-pointer rounded-md"
-            >
-              Sign in
-            </Link>
-            <Link
-              to="/sign-up"
-              className="px-3 py-2 ms-2 text-white  text-sm font-bold bg-gray-800 text-center hover:bg-gray-600 cursor-pointer rounded-md"
-            >
-              Sign up
+           
+            <Link to="/profile">
+              {currentUser ? (
+                <img
+                  className="rounded-full h-7 w-7 object-cover"
+                  src={currentUser.avatar}
+                  alt="profile"
+                />
+              ) : (
+                <>
+                  <li className="px-3 py-2 text-sm text-white font-bold bg-[#41A4FF] text-center hover:bg-blue-500 cursor-pointer rounded-md">
+                    {" "}
+                    Sign in
+                  </li>
+                  <li className="px-3 py-2 ms-2 text-white  text-sm font-bold bg-gray-800 text-center hover:bg-gray-600 cursor-pointer rounded-md">
+                    {" "}
+                    Sign up
+                  </li>
+                </>
+              )}
             </Link>
           </li>
         </ul>
