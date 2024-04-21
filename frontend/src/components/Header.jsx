@@ -85,26 +85,17 @@ const Header = () => {
         <Link to="/listing">Listings</Link>
       </div>
       <div className="items-center space-x-3 hidden md:flex">
-        <Link to="/profile">
-          {currentUser ? (
-            <img
-              className="rounded-full h-7 w-7 object-cover"
-              src={currentUser.avatar}
-              alt="profile"
-            />
-          ) : (
-            <>
-              <li className="px-4 py-2 text-white font-bold bg-[#41A4FF] text-center hover:bg-blue-500 cursor-pointer rounded-md">
-                {" "}
-                Sign in
-              </li>
-              <li className="px-4 py-2 text-white font-bold bg-gray-800 text-center hover:bg-gray-600 cursor-pointer rounded-md">
-                {" "}
-                Sign up
-              </li>
-            </>
-          )}
-        </Link>
+      <Link to='/profile'>
+            {currentUser ? (
+              <img
+                className='rounded-full h-7 w-7 object-cover'
+                src={currentUser.avatar}
+                alt='profile'
+              />
+            ) : (
+              <button className="px-4 py-2 text-white font-bold bg-[#41A4FF] text-center hover:bg-blue-500 cursor-pointer rounded-md"> Sign in</button>
+            )}
+          </Link>
       </div>
       <div onClick={handleNav} className="block md:hidden">
         {nav ? (
@@ -172,29 +163,17 @@ const Header = () => {
           <li className="p-4 border-b border-gray-600">
             <Link to="/listing">Listings</Link>
           </li>
-          <li className="p-4 mt-8">
-           
-            <Link to="/profile">
-              {currentUser ? (
-                <img
-                  className="rounded-full h-7 w-7 object-cover"
-                  src={currentUser.avatar}
-                  alt="profile"
-                />
-              ) : (
-                <>
-                  <li className="px-3 py-2 text-sm text-white font-bold bg-[#41A4FF] text-center hover:bg-blue-500 cursor-pointer rounded-md">
-                    {" "}
-                    Sign in
-                  </li>
-                  <li className="px-3 py-2 ms-2 text-white  text-sm font-bold bg-gray-800 text-center hover:bg-gray-600 cursor-pointer rounded-md">
-                    {" "}
-                    Sign up
-                  </li>
-                </>
-              )}
-            </Link>
-          </li>
+          <Link to='/profile'>
+            {currentUser ? (
+              <img
+                className='rounded-full h-7 w-7 object-cover'
+                src={currentUser.avatar}
+                alt='profile'
+              />
+            ) : (
+              <button className="px-4 py-2 text-white font-bold bg-[#41A4FF] text-center hover:bg-blue-500 cursor-pointer rounded-md mt-4"> Sign in</button>
+            )}
+          </Link>
         </ul>
       </div>
     </nav>
