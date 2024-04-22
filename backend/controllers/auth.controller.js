@@ -9,11 +9,11 @@ export const signup = async (req, res, next) => {
     !username ||
     !email ||
     !password ||
-    username === '' ||
-    email === '' ||
-    password === ''
+    username === "" ||
+    email === "" ||
+    password === ""
   ) {
-    return res.status(400).json({ message: 'All fields are required' });
+    next(errorHandler(400, "All feilds are required"));
   }
   const hashedPassword = bcryptjs.hashSync(password, 10);
   const newUser = new User({ username, email, password: hashedPassword });
@@ -58,7 +58,6 @@ export const google = async (req, res, next) => {
         .status(200)
         .json(rest);
     } else {
-     
       const generatedPassword =
         Math.random().toString(36).slice(-8) +
         Math.random().toString(36).slice(-8);
