@@ -4,39 +4,36 @@ import OAuth from '../components/OAuth';
 
 export default function SignUp() {
   const [formData, setFormData] = useState({});
-  const [error, setError] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.id]: e.target.value,
-    });
+    setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!formData.username || !formData.email || !formData.password) {
+      return setErrorMessage('Please fill out all fields.');
+    }
     try {
       setLoading(true);
+      setErrorMessage(null);
       const res = await fetch('/api/auth/signup', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
       const data = await res.json();
-      console.log(data);
       if (data.success === false) {
-        setLoading(false);
-        setError(data.message);
-        return;
+        return setErrorMessage(data.message);
       }
       setLoading(false);
-      setError(null);
-      navigate('/sign-in');
+      if(res.ok) {
+        navigate('/sign-in');
+      }
     } catch (error) {
+      setErrorMessage(error.message);
       setLoading(false);
-      setError(error.message);
     }
   };
   return (
@@ -79,7 +76,7 @@ export default function SignUp() {
           <span className='text-blue-700'>Sign in</span>
         </Link>
       </div>
-      {error && <p className='text-red-500 mt-5'>{error}</p>}
+      {errorMessage && <p className='text-red-500 mt-5'>{errorMessage}</p>}
     </div>
   );
 }
