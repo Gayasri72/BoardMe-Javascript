@@ -4,7 +4,10 @@ import { Link } from "react-router-dom";
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from 'react-redux';
+import { Button } from "flowbite-react";
+import { FaMoon, FaSun } from 'react-icons/fa';
+import { toggleTheme } from '../redux/theme/themeSlice';
 
 const inside_nav = [
   {
@@ -24,7 +27,9 @@ const inside_nav = [
 const Header = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [nav, setNav] = useState(true);
-
+  
+  const dispatch = useDispatch();
+  const { theme } = useSelector((state) => state.theme);
   const handleNav = () => {
     setNav(!nav);
   };
@@ -84,6 +89,16 @@ const Header = () => {
         </Menu>
         <Link to="/listing">Listings</Link>
       </div>
+      <div className="">
+      <Button
+          className='w-12 h-10 hidden sm:inline'
+          color='gray'
+          pill
+          onClick={() => dispatch(toggleTheme())}
+        >
+          {theme === 'light' ? <FaSun /> : <FaMoon />}
+        </Button>
+          </div>
       <div className="items-center space-x-3 hidden md:flex">
       <Link to='/profile'>
             {currentUser ? (
@@ -93,7 +108,7 @@ const Header = () => {
                 alt='profile'
               />
             ) : (
-              <button className="px-4 py-2 text-white font-bold bg-[#41A4FF] text-center hover:bg-blue-500 cursor-pointer rounded-md"> Sign in</button>
+              <button className="px-4 py-2 text-white font-bold bg-[#41A4FF] text-center hover:bg-blue-500 cursor-pointer rounded-md outline" > Sign in</button>
             )}
           </Link>
       </div>
@@ -163,6 +178,8 @@ const Header = () => {
           <li className="p-4 border-b border-gray-600">
             <Link to="/listing">Listings</Link>
           </li>
+        
+         
           <Link to='/profile'>
             {currentUser ? (
               <img
