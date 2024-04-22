@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Chart from 'chart.js/auto';
 
 function ContactList() {
   const [contacts, setContacts] = useState([]);
@@ -37,7 +38,7 @@ function ContactList() {
   );
 
   return (
-    <div className='container mx-auto h-70vh'>
+    <div className='container mx-auto'>
       <h2 className='text-2xl font-bold mb-4'>Contact Details</h2>
       <div className="flex justify-end mb-4">
         <input
