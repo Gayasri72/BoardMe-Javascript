@@ -5,11 +5,15 @@ const contactController = {
   async createContact(req, res, next) {
     try {
       const { name, email, phone, message } = req.body;
+      // Get the authenticated user from the request
+      const userId = req.user._id; // Assuming the authenticated user is available in req.user
+
       const newContact = new Contact({
         name,
         email,
         phone,
         message,
+        user: userId, // Associate contact with the authenticated user
       });
       const savedContact = await newContact.save();
       res.status(201).json({
@@ -25,7 +29,11 @@ const contactController = {
   // Get all contacts
   async getAllContacts(req, res, next) {
     try {
-      const contacts = await Contact.find();
+      // Get the authenticated user from the request
+      const userId = req.user._id; // Assuming the authenticated user is available in req.user
+
+      // Find contacts associated with the authenticated user
+      const contacts = await Contact.find({ user: userId });
       res.status(200).json({
         success: true,
         contacts,

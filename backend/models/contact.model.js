@@ -17,6 +17,10 @@ const contactSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User", // Reference to the User model
+  },
   createdAt: {
     type: Date,
     default: Date.now,
