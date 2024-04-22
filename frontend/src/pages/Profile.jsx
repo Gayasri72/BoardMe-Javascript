@@ -1,5 +1,5 @@
 
-
+import ContactDetails from '../components/ContactDetails'
 import { useSelector } from 'react-redux';
 import { useRef, useState, useEffect } from 'react';
 import {
@@ -180,6 +180,7 @@ export default function Profile() {
       <p className='text-green-700 mt-5'>
         {updateSuccess ? 'User is updated successfully!' : ''}
       </p>
+      <ContactDetails/>
     </div>
   
   );
