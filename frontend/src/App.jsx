@@ -14,6 +14,7 @@ import Profile from "./pages/Profile";
 import ContactUs from "./pages/ContactUs/ContactUs";
 import ContactList from "./pages/ContactUs/ContactList";
 
+
 export const App = () => {
   return (
     <BrowserRouter>
@@ -32,6 +33,7 @@ export const App = () => {
         <Route path="/packages" element={<Packages />} />
         <Route path="/ContactUs" element={<ContactUs />} />
         <Route path="/ContactList" element={<ContactList />} />
+
       </Routes>
       <Footer />
     </BrowserRouter>

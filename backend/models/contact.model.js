@@ -17,9 +17,14 @@ const contactSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  satisfied: {
+    type: String,
+    enum: ['Yes', 'No'],
+    required: true,
+  },
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User", // Reference to the User model
+    ref: "User",
   },
   createdAt: {
     type: Date,

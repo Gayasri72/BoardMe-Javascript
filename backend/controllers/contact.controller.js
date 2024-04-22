@@ -1,19 +1,18 @@
 import Contact from "../models/contact.model.js";
 
 const contactController = {
-  // Create a new contact entry
   async createContact(req, res, next) {
     try {
-      const { name, email, phone, message } = req.body;
-      // Get the authenticated user from the request
-      const userId = req.user._id; // Assuming the authenticated user is available in req.user
+      const { name, email, phone, message, satisfied } = req.body;
+      const userId = req.user._id;
 
       const newContact = new Contact({
         name,
         email,
         phone,
         message,
-        user: userId, // Associate contact with the authenticated user
+        satisfied, // Include satisfied field
+        user: userId,
       });
       const savedContact = await newContact.save();
       res.status(201).json({
@@ -26,13 +25,9 @@ const contactController = {
     }
   },
 
-  // Get all contacts
   async getAllContacts(req, res, next) {
     try {
-      // Get the authenticated user from the request
-      const userId = req.user._id; // Assuming the authenticated user is available in req.user
-
-      // Find contacts associated with the authenticated user
+      const userId = req.user._id;
       const contacts = await Contact.find({ user: userId });
       res.status(200).json({
         success: true,
@@ -43,7 +38,6 @@ const contactController = {
     }
   },
 
-  // Get contact by ID
   async getContactById(req, res, next) {
     try {
       const contact = await Contact.findById(req.params.id);
@@ -62,7 +56,6 @@ const contactController = {
     }
   },
 
-  // Update contact
   async updateContact(req, res, next) {
     try {
       const { name, email, phone, message } = req.body;
@@ -92,7 +85,6 @@ const contactController = {
     }
   },
 
-  // Delete contact
   async deleteContact(req, res, next) {
     try {
       const deletedContact = await Contact.findByIdAndDelete(req.params.id);

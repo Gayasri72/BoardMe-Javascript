@@ -1,12 +1,9 @@
 import express from "express";
-import { signin, signup, google,signOut } from "../controllers/auth.controller.js";
+import contactController from "../controllers/contact.controller.js";
 
 const router = express.Router();
 
-router.post("/signup", signup);
-router.post("/signin", signin);
-router.post('/google', google)
-router.post('/google', google);
-router.get('/signout', signOut)
+router.post("/", contactController.createContact);
+// other routes...
 
 export default router;
