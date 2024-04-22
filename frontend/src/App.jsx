@@ -12,6 +12,7 @@ import SignIn from "./pages/SignIn";
 import PrivateRoute from './components/PrivateRoute';
 import Profile from "./pages/Profile";
 import ContactUs from "./pages/ContactUs/ContactUs";
+import ContactList from "./pages/ContactUs/ContactList";
 
 export const App = () => {
   return (
@@ -30,6 +31,7 @@ export const App = () => {
         <Route path="/events" element={<Events />} />
         <Route path="/packages" element={<Packages />} />
         <Route path="/ContactUs" element={<ContactUs />} />
+        <Route path="/ContactList" element={<ContactList />} />
       </Routes>
       <Footer />
     </BrowserRouter>
