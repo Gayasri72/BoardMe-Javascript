@@ -3,6 +3,10 @@ import { app } from '../firebase';
 import { useDispatch } from 'react-redux';
 import { signInSuccess } from '../redux/user/userSlice';
 import { useNavigate } from 'react-router-dom';
+import { AiFillGoogleCircle } from 'react-icons/ai';
+import { Button } from 'flowbite-react';
+
+
 
 export default function OAuth() {
   const dispatch = useDispatch();
@@ -33,12 +37,9 @@ export default function OAuth() {
     }
   };
   return (
-    <button
-      onClick={handleGoogleClick}
-      type='button'
-      className='bg-black text-white p-3 rounded-lg uppercase hover:opacity-95'
-    >
-      Continue with google
-    </button>
-  );
+    <Button type='button' gradientDuoTone='pinkToOrange' outline onClick={handleGoogleClick}>
+        <AiFillGoogleCircle className='w-6 h-6 mr-2'/>
+        Continue with Google
+    </Button>
+  )
 }
