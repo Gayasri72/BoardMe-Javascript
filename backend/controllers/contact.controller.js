@@ -4,7 +4,7 @@ const contactController = {
   // Create a new contact entry
   async createContact(req, res, next) {
     try {
-      const { name, email, phone, message,option } = req.body;
+      const { name, email, phone, message, option } = req.body;
       const newContact = new Contact({
         name,
         email,
@@ -17,6 +17,20 @@ const contactController = {
         success: true,
         message: "Contact created successfully",
         contact: savedContact,
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  // Get all contacts of the current user
+  async getAllContacts(req, res, next) {
+    try {
+      const userEmail = req.query.email;
+      const contacts = await Contact.find({ email: userEmail });
+      res.status(200).json({
+        success: true,
+        contacts,
       });
     } catch (error) {
       next(error);
@@ -104,6 +118,8 @@ const contactController = {
       next(error);
     }
   },
+
+
 };
 
 export default contactController;
