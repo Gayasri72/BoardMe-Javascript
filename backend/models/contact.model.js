@@ -17,15 +17,6 @@ const contactSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  satisfied: {
-    type: String,
-    enum: ['Yes', 'No'],
-    required: true,
-  },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-  },
   createdAt: {
     type: Date,
     default: Date.now,

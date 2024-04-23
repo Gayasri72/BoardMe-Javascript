@@ -1,18 +1,15 @@
 import Contact from "../models/contact.model.js";
 
 const contactController = {
+  // Create a new contact entry
   async createContact(req, res, next) {
     try {
-      const { name, email, phone, message, satisfied } = req.body;
-      const userId = req.user._id;
-
+      const { name, email, phone, message } = req.body;
       const newContact = new Contact({
         name,
         email,
         phone,
         message,
-        satisfied, // Include satisfied field
-        user: userId,
       });
       const savedContact = await newContact.save();
       res.status(201).json({
@@ -25,10 +22,10 @@ const contactController = {
     }
   },
 
+  // Get all contacts
   async getAllContacts(req, res, next) {
     try {
-      const userId = req.user._id;
-      const contacts = await Contact.find({ user: userId });
+      const contacts = await Contact.find();
       res.status(200).json({
         success: true,
         contacts,
@@ -38,6 +35,7 @@ const contactController = {
     }
   },
 
+  // Get contact by ID
   async getContactById(req, res, next) {
     try {
       const contact = await Contact.findById(req.params.id);
@@ -56,6 +54,7 @@ const contactController = {
     }
   },
 
+  // Update contact
   async updateContact(req, res, next) {
     try {
       const { name, email, phone, message } = req.body;
@@ -85,6 +84,7 @@ const contactController = {
     }
   },
 
+  // Delete contact
   async deleteContact(req, res, next) {
     try {
       const deletedContact = await Contact.findByIdAndDelete(req.params.id);
