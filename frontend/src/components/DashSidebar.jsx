@@ -4,8 +4,9 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { signoutSuccess } from '../redux/user/userSlice';
 import { useDispatch } from 'react-redux';
-
+import { useSelector } from 'react-redux';
 export default function DashSidebar() {
+  const { currentUser } = useSelector((state) => state.user);
   const location = useLocation();
   const dispatch = useDispatch();
   const [tab, setTab] = useState('');
@@ -41,7 +42,7 @@ export default function DashSidebar() {
             <Sidebar.Item
               active={tab === 'profile'}
               icon={HiUser}
-              label={'User'}
+              label={currentUser.isAdmin?'Admin':'User'}
               labelColor='dark'
               as='div'
             >
