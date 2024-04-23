@@ -4,12 +4,13 @@ const contactController = {
   // Create a new contact entry
   async createContact(req, res, next) {
     try {
-      const { name, email, phone, message } = req.body;
+      const { name, email, phone, message,option } = req.body;
       const newContact = new Contact({
         name,
         email,
         phone,
         message,
+        option,
       });
       const savedContact = await newContact.save();
       res.status(201).json({

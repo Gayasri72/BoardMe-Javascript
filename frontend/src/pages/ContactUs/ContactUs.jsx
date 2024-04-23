@@ -1,79 +1,118 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const ContactForm = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [message, setMessage] = useState('');
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: '',
+    option: 'Yes', // Default value for the radio button
+  });
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    if (name === 'name') {
-      setName(value);
-    } else if (name === 'email') {
-      setEmail(value);
-    } else if (name === 'phone') {
-      setPhone(value);
-    } else if (name === 'message') {
-      setMessage(value);
-    }
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ name, email, phone, message })
+      await axios.post('/api/contact', formData);
+      // Handle successful form submission (e.g., show a success message)
+      console.log('Form submitted successfully');
+      // Reset form fields and adjust message box height
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        message: '',
+        option: 'Yes',
       });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        console.log('Contact created successfully:', data.contact);
-        // Clear form fields
-        setName('');
-        setEmail('');
-        setPhone('');
-        setMessage('');
-      } else {
-        console.error('Error:', data.message);
-      }
+      document.getElementById('message').style.height = 'auto';
     } catch (error) {
-      console.error('Error:', error);
+      // Handle form submission error (e.g., display error message)
+      console.error('Error submitting form:', error);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex justify-center items-center">
-      <div className="bg-white shadow-md rounded px-8 py-8 w-full max-w-xl">
-        <h1 className="text-3xl mb-6 text-center font-bold text-gray-800">Contact Us</h1>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label htmlFor="name" className="block text-gray-800 text-sm font-semibold mb-2">Name</label>
-            <input type="text" id="name" name="name" value={name} onChange={handleChange} placeholder="Enter Your Name" className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500" required />
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <form onSubmit={handleSubmit} className="w-full max-w-lg bg-white rounded-lg shadow-lg p-8">
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2">Name:</label>
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2">Email:</label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2">Phone:</label>
+          <input
+            type="text"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            required
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2">Message:</label>
+          <textarea
+            id="message"
+            name="message"
+            value={formData.message}
+            onChange={handleChange}
+            required
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-32"
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2">Would you like to subscribe to our newsletter?</label>
+          <div className="flex items-center">
+            <label className="mr-2">
+              <input
+                type="radio"
+                name="option"
+                value="Yes"
+                checked={formData.option === 'Yes'}
+                onChange={handleChange}
+                required
+                className="mr-1"
+              />
+              Yes
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="option"
+                value="No"
+                checked={formData.option === 'No'}
+                onChange={handleChange}
+                required
+                className="mr-1"
+              />
+              No
+            </label>
           </div>
-          <div className="mb-4">
-            <label htmlFor="email" className="block text-gray-800 text-sm font-semibold mb-2">Email</label>
-            <input type="email" id="email" name="email" value={email} onChange={handleChange} placeholder="Enter Your Email" className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500" required />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="phone" className="block text-gray-800 text-sm font-semibold mb-2">Phone</label>
-            <input type="text" id="phone" name="phone" value={phone} onChange={handleChange} placeholder="Enter Your Phone Number" className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500" required />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="message" className="block text-gray-800 text-sm font-semibold mb-2">Message</label>
-            <textarea id="message" name="message" value={message} onChange={handleChange} placeholder="Enter Your Message" className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500" rows="4" required ></textarea>
-          </div>
-          <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full focus:outline-none focus:shadow-outline">
-            Submit
-          </button>
-        </form>
-      </div>
+        </div>
+        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Submit</button>
+      </form>
     </div>
   );
 };

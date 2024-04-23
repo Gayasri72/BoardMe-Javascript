@@ -17,6 +17,11 @@ const contactSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  option: {
+    type: String,
+    enum: ['Yes', 'No'],
+    required: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now,
