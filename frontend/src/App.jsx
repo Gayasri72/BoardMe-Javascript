@@ -10,7 +10,8 @@ import { Packages } from "./pages/Packages";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import PrivateRoute from './components/PrivateRoute';
-import Profile from "./pages/Profile";
+
+import Dashboard from './pages/Dashboard'
 
 export const App = () => {
   return (
@@ -21,13 +22,14 @@ export const App = () => {
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/about" element={<About />} />
-        <Route element={<PrivateRoute />}>
-          <Route path='/profile' element={<Profile />} />
-        </Route>
+        
         <Route path="/spaces" element={<Spaces />} />
         <Route path="/services" element={<Services />} />
         <Route path="/events" element={<Events />} />
         <Route path="/packages" element={<Packages />} />
+        <Route element={<PrivateRoute />}>
+          <Route path='/dashboard' element={<Dashboard />} />
+        </Route>
       </Routes>
       <Footer />
     </BrowserRouter>

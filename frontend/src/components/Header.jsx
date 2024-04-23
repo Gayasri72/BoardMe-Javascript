@@ -8,7 +8,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Button } from "flowbite-react";
 import { FaMoon, FaSun } from 'react-icons/fa';
 import { toggleTheme } from '../redux/theme/themeSlice';
-
+import { Avatar, Dropdown } from 'flowbite-react';
+import { signoutSuccess } from '../redux/user/userSlice';
 const inside_nav = [
   {
     path: "/spaces",
@@ -30,6 +31,8 @@ const Header = () => {
   
   const dispatch = useDispatch();
   const { theme } = useSelector((state) => state.theme);
+ 
+  
   const handleNav = () => {
     setNav(!nav);
   };
@@ -38,6 +41,22 @@ const Header = () => {
     return classes.filter(Boolean).join(" ");
   }
 
+
+const handleSignout = async () => {
+    try {
+      const res = await fetch('/api/user/signout', {
+        method: 'POST',
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        dispatch(signoutSuccess());
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   return (
     <nav className="flex justify-around w-full py-4 bg-gray-200 sticky top-0 z-[999]">
       <div className="flex items-center">
@@ -99,19 +118,31 @@ const Header = () => {
           {theme === 'light' ? <FaSun /> : <FaMoon />}
         </Button>
           </div>
-      <div className="items-center space-x-3 hidden md:flex">
-      <Link to='/profile'>
-            {currentUser ? (
-              <img
-                className='rounded-full h-7 w-7 object-cover'
-                src={currentUser.avatar}
-                alt='profile'
-              />
-            ) : (
-              <button className="px-4 py-2 text-white font-bold bg-[#41A4FF] text-center hover:bg-blue-500 cursor-pointer rounded-md outline" > Sign in</button>
-            )}
+          {currentUser ? (
+          <Dropdown
+            arrowIcon={false}
+            inline
+            label={
+              <Avatar alt='user' img={currentUser.profilePicture} rounded />
+            }
+          >
+            <Dropdown.Header>
+              <span className='block text-sm'>@{currentUser.username}</span>
+              <span className='block text-sm font-medium truncate'>{currentUser.email}</span>
+            </Dropdown.Header>
+            <Link to={'/dashboard?tab=profile'}>
+              <Dropdown.Item>Profile</Dropdown.Item>
+            </Link>
+            <Dropdown.Divider />
+            <Dropdown.Item onClick={handleSignout}>Sign out</Dropdown.Item>
+          </Dropdown>
+        ) : (
+          <Link to='/sign-in'>
+            <Button gradientDuoTone='purpleToBlue' outline>
+              Sign In
+            </Button>
           </Link>
-      </div>
+        )}
       <div onClick={handleNav} className="block md:hidden">
         {nav ? (
           <AiOutlineMenu size={20} style={{ color: "black" }} />
@@ -180,17 +211,31 @@ const Header = () => {
           </li>
         
          
-          <Link to='/profile'>
-            {currentUser ? (
-              <img
-                className='rounded-full h-7 w-7 object-cover'
-                src={currentUser.avatar}
-                alt='profile'
-              />
-            ) : (
-              <button className="px-4 py-2 text-white font-bold bg-[#41A4FF] text-center hover:bg-blue-500 cursor-pointer rounded-md mt-4"> Sign in</button>
-            )}
+          {currentUser ? (
+          <Dropdown
+            arrowIcon={false}
+            inline
+            label={
+              <Avatar alt='user' img={currentUser.profilePicture} rounded />
+            }
+          >
+            <Dropdown.Header>
+              <span className='block text-sm'>@{currentUser.username}</span>
+              <span className='block text-sm font-medium truncate'>{currentUser.email}</span>
+            </Dropdown.Header>
+            <Link to={'/dashboard?tab=profile'}>
+              <Dropdown.Item>Profile</Dropdown.Item>
+            </Link>
+            <Dropdown.Divider />
+            <Dropdown.Item onClick={handleSignout}>Sign out</Dropdown.Item>
+          </Dropdown>
+        ) : (
+          <Link to='/sign-in'>
+            <Button gradientDuoTone='purpleToBlue' outline>
+              Sign In
+            </Button>
           </Link>
+        )}
         </ul>
       </div>
     </nav>
