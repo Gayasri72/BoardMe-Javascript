@@ -1,3 +1,4 @@
+// ContactUser.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -6,6 +7,7 @@ const ContactUser = ({ userEmail }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [subscriptionFilter, setSubscriptionFilter] = useState('');
   const [selectedMessage, setSelectedMessage] = useState(null);
+  const [editContact, setEditContact] = useState(null);
 
   useEffect(() => {
     const fetchContacts = async () => {
@@ -45,109 +47,100 @@ const ContactUser = ({ userEmail }) => {
     setSelectedMessage(message);
   };
 
-  const handleEdit = (contactId) => {
-    // Implement your edit logic here
-    console.log('Edit contact:', contactId);
+  const handleEdit = (contact) => {
+    setEditContact(contact);
   };
 
-  const handleDelete = async (contactId) => {
-    // Implement your delete logic here
+  const handleEditSubmit = async (e) => {
+    e.preventDefault();
     try {
-      await axios.delete(`/api/contact/${contactId}`);
-      setContacts(prevContacts => prevContacts.filter(contact => contact._id !== contactId));
-      console.log('Contact deleted successfully');
+      const updatedContact = await axios.put(`/api/contact/${editContact._id}`, editContact);
+      setContacts(prevContacts => prevContacts.map(contact => contact._id === updatedContact.data.contact._id ? updatedContact.data.contact : contact));
+      setEditContact(null);
+      console.log('Contact updated successfully');
     } catch (error) {
-      console.error('Error deleting contact:', error);
+      console.error('Error updating contact:', error);
     }
   };
 
+  const handleEditChange = (e) => {
+    const { name, value } = e.target;
+    setEditContact(prevContact => ({
+      ...prevContact,
+      [name]: value
+    }));
+  };
+
   return (
-    <div className="container mx-auto mt-8">
+    <div className="container mx-auto mt-8 px-4">
       <h2 className="text-lg font-bold mb-4">Contact Details</h2>
-      <div className="mb-4">
+      {/* Add search and filter UI */}
+      <div>
+        {/* Search input */}
         <input
           type="text"
           placeholder="Search contacts..."
           value={searchQuery}
           onChange={e => setSearchQuery(e.target.value)}
-          className="border border-gray-300 rounded-md py-2 px-4 w-full"
         />
+        {/* Subscription filter */}
+        <select
+          value={subscriptionFilter}
+          onChange={e => setSubscriptionFilter(e.target.value)}
+        >
+          <option value="">All</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
       </div>
-      <div className="mb-4">
-        <span className="mr-2">Subscription:</span>
-        <label className="mr-4">
-          <input
-            type="radio"
-            name="subscriptionFilter"
-            value=""
-            checked={subscriptionFilter === ''}
-            onChange={() => setSubscriptionFilter('')}
-            className="mr-1"
-          />
-          All
-        </label>
-        <label>
-          <input
-            type="radio"
-            name="subscriptionFilter"
-            value="Yes"
-            checked={subscriptionFilter === 'Yes'}
-            onChange={() => setSubscriptionFilter('Yes')}
-            className="mr-1"
-          />
-          Yes
-        </label>
-        <label className="ml-4">
-          <input
-            type="radio"
-            name="subscriptionFilter"
-            value="No"
-            checked={subscriptionFilter === 'No'}
-            onChange={() => setSubscriptionFilter('No')}
-            className="mr-1"
-          />
-          No
-        </label>
-      </div>
-      <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
-            <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Phone</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Message</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Subscription</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
+      {/* Contacts table */}
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Message</th>
+            <th>Subscription</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredContacts.map(contact => (
+            <tr key={contact._id}>
+              <td>{contact.name}</td>
+              <td>{contact.email}</td>
+              <td>{contact.phone}</td>
+              <td onClick={() => handleShowMessage(contact.message)}>
+                {truncateMessage(contact.message, 50)}
+              </td>
+              <td>{contact.option}</td>
+              <td>
+                <button onClick={() => handleEdit(contact)}>Edit</button>
+              </td>
             </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            {filteredContacts.map(contact => (
-              <tr key={contact._id}>
-                <td className="px-6 py-4 whitespace-nowrap">{contact.name}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{contact.email}</td>
-                <td className="px-6 py-4 whitespace-nowrap">{contact.phone}</td>
-                <td className="px-6 py-4 whitespace-nowrap cursor-pointer" onClick={() => handleShowMessage(contact.message)}>
-                  {truncateMessage(contact.message, 50)}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">{contact.option}</td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <button className="text-blue-500 hover:text-blue-700 mr-2" onClick={() => handleEdit(contact._id)}>Edit</button>
-                  <button className="text-red-500 hover:text-red-700" onClick={() => handleDelete(contact._id)}>Delete</button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+          ))}
+        </tbody>
+      </table>
+      {/* Display selected message */}
       {selectedMessage && (
-        <div className="fixed inset-0 flex items-center justify-center Abg-black bg-opacity-50">
-          <div className="bg-white p-4 rounded-md">
-            <h3 className="text-lg font-semibold mb-2">Message</h3>
-            <p>{selectedMessage}</p>
-            <button className="mt-4 px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-md" onClick={() => setSelectedMessage(null)}>Close</button>
-          </div>
+        <div>
+          <h3>Selected Message</h3>
+          <p>{selectedMessage}</p>
         </div>
+      )}
+      {/* Edit contact form */}
+      {editContact && (
+        <form onSubmit={handleEditSubmit}>
+          <input
+            type="text"
+            name="name"
+            value={editContact.name}
+            onChange={handleEditChange}
+          />
+          {/* Add other input fields */}
+          <button type="submit">Save</button>
+        </form>
       )}
     </div>
   );

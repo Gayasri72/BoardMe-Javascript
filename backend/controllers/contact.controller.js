@@ -26,21 +26,12 @@ const contactController = {
   // Get all contacts of the current user
   async getAllContacts(req, res, next) {
     try {
-      const userEmail = req.query.email;
-      const contacts = await Contact.find({ email: userEmail });
-      res.status(200).json({
-        success: true,
-        contacts,
-      });
-    } catch (error) {
-      next(error);
-    }
-  },
+      // Extract user's email from the verified token
+      const userEmail = req.user.email; // Assuming email is stored in the token payload
 
-  // Get all contacts
-  async getAllContacts(req, res, next) {
-    try {
-      const contacts = await Contact.find();
+      // Fetch contacts for the user's email
+      const contacts = await Contact.find({ email: userEmail });
+
       res.status(200).json({
         success: true,
         contacts,
@@ -118,8 +109,6 @@ const contactController = {
       next(error);
     }
   },
-
-
 };
 
 export default contactController;
