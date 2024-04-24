@@ -1,10 +1,15 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-
+import { useSelector, useDispatch } from 'react-redux';
+import { Button } from "flowbite-react";
+import { FaMoon, FaSun } from 'react-icons/fa';
+import { toggleTheme } from '../redux/theme/themeSlice';
+import { Avatar, Dropdown } from 'flowbite-react';
+import { signoutSuccess } from '../redux/user/userSlice';
 const inside_nav = [
   {
     path: "/spaces",
@@ -21,8 +26,13 @@ const inside_nav = [
 ];
 
 const Header = () => {
+  const { currentUser } = useSelector((state) => state.user);
   const [nav, setNav] = useState(true);
-
+  
+  const dispatch = useDispatch();
+  const { theme } = useSelector((state) => state.theme);
+ 
+  
   const handleNav = () => {
     setNav(!nav);
   };
@@ -31,19 +41,35 @@ const Header = () => {
     return classes.filter(Boolean).join(" ");
   }
 
+
+const handleSignout = async () => {
+    try {
+      const res = await fetch('/api/user/signout', {
+        method: 'POST',
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        console.log(data.message);
+      } else {
+        dispatch(signoutSuccess());
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   return (
     <nav className="flex justify-around w-full py-4 bg-gray-200 sticky top-0 z-[999]">
       <div className="flex items-center">
         <h3 className="text-2xl font-bold text-[#41A4FF]">BoardMe</h3>
       </div>
       <div className="items-center hidden space-x-5 md:flex">
-        <Link to="/">Home</Link>
+        <Link to="/" className="text-black">Home</Link>
         <Menu as="div" className="relative inline-block text-left">
           <div>
-            <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2">
+            <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-black">
               Reservations
               <ChevronDownIcon
-                className="-mr-1 mt-1 h-5 w-5 text-gray-400"
+                className="-mr-1 mt-1 h-5 w-5 text-black"
                 aria-hidden="true"
               />
             </Menu.Button>
@@ -65,8 +91,8 @@ const Header = () => {
                       <Link
                         className={classNames(
                           active
-                            ? "bg-gray-100 text-gray-900"
-                            : "text-gray-700",
+                            ? "bg-gray-100 text-blue-900"
+                            : "text-blue-700",
                           "block px-4 py-2 text-sm"
                         )}
                         to={item.path}
@@ -80,22 +106,43 @@ const Header = () => {
             </Menu.Items>
           </Transition>
         </Menu>
-        <Link to="/listing">Listings</Link>
+        <Link to="/listing" className="text-black">Listings</Link>
       </div>
-      <div className="items-center space-x-3 hidden md:flex">
-        <Link
-          to="/sign-in"
-          className="px-4 py-2 text-white font-bold bg-[#41A4FF] text-center hover:bg-blue-500 cursor-pointer rounded-md"
+      <div className="">
+      <Button
+          className='w-12 h-10 hidden sm:inline'
+          color='gray'
+          pill
+          onClick={() => dispatch(toggleTheme())}
         >
-          Sign in
-        </Link>
-        <Link
-          to="/sign-up"
-          className="px-4 py-2 text-white font-bold bg-gray-800 text-center hover:bg-gray-600 cursor-pointer rounded-md"
-        >
-          Sign up
-        </Link>
-      </div>
+          {theme === 'light' ? <FaSun /> : <FaMoon />}
+        </Button>
+          </div>
+          {currentUser ? (
+          <Dropdown
+            arrowIcon={false}
+            inline
+            label={
+              <Avatar alt='user' img={currentUser.profilePicture} rounded />
+            }
+          >
+            <Dropdown.Header>
+              <span className='block text-sm'>@{currentUser.username}</span>
+              <span className='block text-sm font-medium truncate'>{currentUser.email}</span>
+            </Dropdown.Header>
+            <Link to={'/dashboard?tab=profile'}>
+              <Dropdown.Item>Profile</Dropdown.Item>
+            </Link>
+            <Dropdown.Divider />
+            <Dropdown.Item onClick={handleSignout}>Sign out</Dropdown.Item>
+          </Dropdown>
+        ) : (
+          <Link to='/sign-in'>
+            <Button gradientDuoTone='purpleToBlue' outline>
+              Sign In
+            </Button>
+          </Link>
+        )}
       <div onClick={handleNav} className="block md:hidden">
         {nav ? (
           <AiOutlineMenu size={20} style={{ color: "black" }} />
@@ -113,7 +160,7 @@ const Header = () => {
         <h1 className="text-2xl font-medium text-blue-500 m-8">BoardMe</h1>
         <ul className="p-4 mt-20">
           <li className="p-4 border-b border-gray-600">
-            <Link to="/">Home</Link>
+            <Link to="/" >Home</Link>
           </li>
           <li className="p-4 border-b border-gray-600">
             <Menu as="div" className="relative inline-block text-left">
@@ -162,20 +209,33 @@ const Header = () => {
           <li className="p-4 border-b border-gray-600">
             <Link to="/listing">Listings</Link>
           </li>
-          <li className="p-4 mt-8">
-            <Link
-              to="/sign-in"
-              className="px-3 py-2 text-sm text-white font-bold bg-[#41A4FF] text-center hover:bg-blue-500 cursor-pointer rounded-md"
-            >
-              Sign in
+        
+         
+          {currentUser ? (
+          <Dropdown
+            arrowIcon={false}
+            inline
+            label={
+              <Avatar alt='user' img={currentUser.profilePicture} rounded />
+            }
+          >
+            <Dropdown.Header>
+              <span className='block text-sm'>@{currentUser.username}</span>
+              <span className='block text-sm font-medium truncate'>{currentUser.email}</span>
+            </Dropdown.Header>
+            <Link to={'/dashboard?tab=profile'}>
+              <Dropdown.Item>Profile</Dropdown.Item>
             </Link>
-            <Link
-              to="/sign-up"
-              className="px-3 py-2 ms-2 text-white  text-sm font-bold bg-gray-800 text-center hover:bg-gray-600 cursor-pointer rounded-md"
-            >
-              Sign up
-            </Link>
-          </li>
+            <Dropdown.Divider />
+            <Dropdown.Item onClick={handleSignout}>Sign out</Dropdown.Item>
+          </Dropdown>
+        ) : (
+          <Link to='/sign-in'>
+            <Button gradientDuoTone='purpleToBlue' outline>
+              Sign In
+            </Button>
+          </Link>
+        )}
         </ul>
       </div>
     </nav>
