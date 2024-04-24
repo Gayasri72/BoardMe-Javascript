@@ -63,13 +63,13 @@ const handleSignout = async () => {
         <h3 className="text-2xl font-bold text-[#41A4FF]">BoardMe</h3>
       </div>
       <div className="items-center hidden space-x-5 md:flex">
-        <Link to="/">Home</Link>
+        <Link to="/" className="text-black">Home</Link>
         <Menu as="div" className="relative inline-block text-left">
           <div>
-            <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2">
+            <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md px-3 py-2 text-black">
               Reservations
               <ChevronDownIcon
-                className="-mr-1 mt-1 h-5 w-5 text-gray-400"
+                className="-mr-1 mt-1 h-5 w-5 text-black"
                 aria-hidden="true"
               />
             </Menu.Button>
@@ -91,8 +91,8 @@ const handleSignout = async () => {
                       <Link
                         className={classNames(
                           active
-                            ? "bg-gray-100 text-gray-900"
-                            : "text-gray-700",
+                            ? "bg-gray-100 text-blue-900"
+                            : "text-blue-700",
                           "block px-4 py-2 text-sm"
                         )}
                         to={item.path}
@@ -106,7 +106,7 @@ const handleSignout = async () => {
             </Menu.Items>
           </Transition>
         </Menu>
-        <Link to="/listing">Listings</Link>
+        <Link to="/listing" className="text-black">Listings</Link>
       </div>
       <div className="">
       <Button
@@ -160,7 +160,7 @@ const handleSignout = async () => {
         <h1 className="text-2xl font-medium text-blue-500 m-8">BoardMe</h1>
         <ul className="p-4 mt-20">
           <li className="p-4 border-b border-gray-600">
-            <Link to="/">Home</Link>
+            <Link to="/" >Home</Link>
           </li>
           <li className="p-4 border-b border-gray-600">
             <Menu as="div" className="relative inline-block text-left">
