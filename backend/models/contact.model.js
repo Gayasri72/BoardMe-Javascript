@@ -17,7 +17,7 @@ const contactSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  option: {
+  satisfaction: {
     type: String,
     enum: ['Yes', 'No'],
     required: true,
@@ -26,6 +26,7 @@ const contactSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  
 });
 
 const Contact = mongoose.model("Contact", contactSchema);

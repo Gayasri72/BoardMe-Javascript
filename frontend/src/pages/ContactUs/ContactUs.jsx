@@ -1,128 +1,135 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const ContactForm = () => {
+const ContactUsForm = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
     message: '',
-    option: 'Yes', // Default value for the radio button
+    satisfaction: 'Yes', // Default value
   });
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
     try {
-      await axios.post('/api/contact', formData);
-      console.log('Form submitted successfully');
+      const response = await axios.post('/api/contact', formData);
+      setSuccessMessage(response.data.message);
       setFormData({
         name: '',
         email: '',
         phone: '',
         message: '',
-        option: 'Yes',
+        satisfaction: 'Yes',
       });
-      document.getElementById('message').style.height = 'auto';
+      setIsSubmitted(true);
     } catch (error) {
-      console.error('Error submitting form:', error);
+      setErrorMessage(error.response.data.message);
     }
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      {/* Left Column */}
-      <div className="flex-1 px-8 py-4 ml-12">
-        <h2 className="text-2xl font-semibold mb-4">Contact Information</h2>
-        <div className="flex flex-col space-y-4">
-          <div className="flex items-center space-x-2">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
-              <path d="M10 3a7 7 0 0 1 7 7c0 2.461-1.332 4.853-3.095 6.095l-.091.076C12.608 17.903 11.328 19 10 19s-2.607-1.097-6.814-3.729l-.093-.078C3.33 14.853 2 12.461 2 10A7 7 0 0 1 10 3zm0 2a5 5 0 0 0-5 5c0 1.757.955 3.434 2.504 5.068l.097.082C7.949 15.287 8.481 15 10 15s2.051.287 2.399.15l.098-.083C14.044 13.434 15 11.757 15 10a5 5 0 0 0-5-5zm0 2a3 3 0 0 0-3 3c0 .989.49 2.017 1.621 3.207l.072.06C8.483 13.702 9.176 14 10 14s1.517-.298 2.307-.733l.073-.062C14.51 10.017 15 8.989 15 8a3 3 0 0 0-3-3z" />
-            </svg>
-            <span>+1 123 456 7890</span>
+    <div className="flex justify-center items-center h-screen">
+      <div className="bg-gray-100 rounded-md shadow-lg p-8 w-9/12">
+        <h2 className="text-2xl font-bold mb-4 text-center">Contact Us</h2>
+        <form onSubmit={handleSubmit} className="max-w-lg mx-auto">
+          <div className="mb-4">
+            <label className="block mb-1 font-semibold">Name</label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none focus:border-blue-500"
+              required
+            />
           </div>
-          <div className="flex items-center space-x-2">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M17 5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V5zM9 2a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm4.293 11.707a1 1 0 0 0-1.414 0l-1 1a1 1 0 1 0 1.414 1.414l1-1a1 1 0 0 0 0-1.414zM12 9a1 1 0 1 0-2 0v1a1 1 0 0 0 2 0V9z" />
-            </svg>
-            <span>info@example.com</span>
+          <div className="mb-4">
+            <label className="block mb-1 font-semibold">Email</label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none focus:border-blue-500"
+              required
+            />
           </div>
-          <div className="flex items-center space-x-2">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M5 5a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-3.586l1.293-1.293a1 1 0 0 0-1.414-1.414L9 12.586l-2.293-2.293a1 1 0 1 0-1.414 1.414L7.414 15H5a1 1 0 0 1-1-1V5zm-1 11a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2z" />
-            </svg>
-            <span>123 Main Street, City, Country</span>
+          <div className="mb-4">
+            <label className="block mb-1 font-semibold">Phone</label>
+            <input
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              className="border border-gray-300 rounded-md py-2 px-4 w-full focus:outline-none focus:border-blue-500"
+              required
+            />
           </div>
-        </div>
-      </div>
-      {/* Right Column */}
-      <div className="flex-1 px-8 py-4">
-        <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-md">
-          <h2 className="text-2xl font-semibold mb-4">Contact Us</h2>
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Name"
-            className="w-full mb-4 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Email"
-            className="w-full mb-4 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <input
-            type="text"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            placeholder="Phone"
-            className="w-full mb-4 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <textarea
-            id="message"
-            name="message"
-            value={formData.message}
-            onChange={handleChange}
-            placeholder="Message"
-            className="w-full mb-4 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 h-32 resize-none"
-          />
-          <div className="flex items-center mb-4">
-            <label className="mr-4">
-              <input
-                type="radio"
-                name="option"
-                value="Yes"
-                checked={formData.option === 'Yes'}
-                onChange={handleChange}
-                className="mr-1"
-              />
-              Yes
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="option"
-                value="No"
-                checked={formData.option === 'No'}
-                onChange={handleChange}
-                className="mr-1"
-              />
-              No
-            </label>
+          <div className="mb-4">
+            <label className="block mb-1 font-semibold">Message</label>
+            <textarea
+              name="message"
+              value={formData.message}
+              onChange={handleChange}
+              className="border border-gray-300 rounded-md py-2 px-4 w-full h-32 resize-none focus:outline-none focus:border-blue-500"
+              required
+            ></textarea>
           </div>
-          <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">Submit</button>
+          <div className="mb-4">
+            <label className="block mb-1 font-semibold">Are you satisfied with our website?</label>
+            <div>
+              <label className="mr-4">
+                <input
+                  type="radio"
+                  name="satisfaction"
+                  value="Yes"
+                  checked={formData.satisfaction === 'Yes'}
+                  onChange={handleChange}
+                  className="mr-1"
+                />
+                Yes
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="satisfaction"
+                  value="No"
+                  checked={formData.satisfaction === 'No'}
+                  onChange={handleChange}
+                  className="mr-1"
+                />
+                No
+              </label>
+            </div>
+          </div>
+          <button
+            type="submit"
+            className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300"
+          >
+            Submit
+          </button>
         </form>
+        {successMessage && isSubmitted && (
+          <div className="mt-4 bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded-md">
+            {successMessage}
+          </div>
+        )}
+        {errorMessage && (
+          <div className="mt-4 bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded-md">
+            {errorMessage}
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
-export default ContactForm;
+export default ContactUsForm;

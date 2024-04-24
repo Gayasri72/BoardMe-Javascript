@@ -1,26 +1,24 @@
-// ContactUser.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const ContactUser = ({ userEmail }) => {
+const DashContact = () => {
   const [contacts, setContacts] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [subscriptionFilter, setSubscriptionFilter] = useState('');
+  const [satisfactionFilter, setSatisfactionFilter] = useState('');
   const [selectedMessage, setSelectedMessage] = useState(null);
-  const [editContact, setEditContact] = useState(null);
 
   useEffect(() => {
     const fetchContacts = async () => {
       try {
-        const response = await axios.get(`/api/contact?email=${userEmail}`);
-        setContacts(response.data.contacts);
+        const response = await axios.get('/api/contact');
+        setContacts(response.data); // Assuming response.data directly contains contacts
       } catch (error) {
         console.error('Error fetching contacts:', error);
       }
     };
 
     fetchContacts();
-  }, [userEmail]);
+  }, []);
 
   const filteredContacts = contacts.filter(contact => {
     const isMatchingSearch = contact.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -28,10 +26,10 @@ const ContactUser = ({ userEmail }) => {
                             contact.phone.toLowerCase().includes(searchQuery.toLowerCase()) ||
                             contact.message.toLowerCase().includes(searchQuery.toLowerCase());
 
-    if (subscriptionFilter === '') {
+    if (satisfactionFilter === '') {
       return isMatchingSearch;
     } else {
-      return isMatchingSearch && contact.option === subscriptionFilter;
+      return isMatchingSearch && contact.satisfaction === satisfactionFilter;
     }
   });
 
@@ -47,103 +45,91 @@ const ContactUser = ({ userEmail }) => {
     setSelectedMessage(message);
   };
 
-  const handleEdit = (contact) => {
-    setEditContact(contact);
-  };
-
-  const handleEditSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const updatedContact = await axios.put(`/api/contact/${editContact._id}`, editContact);
-      setContacts(prevContacts => prevContacts.map(contact => contact._id === updatedContact.data.contact._id ? updatedContact.data.contact : contact));
-      setEditContact(null);
-      console.log('Contact updated successfully');
-    } catch (error) {
-      console.error('Error updating contact:', error);
-    }
-  };
-
-  const handleEditChange = (e) => {
-    const { name, value } = e.target;
-    setEditContact(prevContact => ({
-      ...prevContact,
-      [name]: value
-    }));
-  };
-
   return (
-    <div className="container mx-auto mt-8 px-4">
+    <div className="container mx-auto mt-8">
       <h2 className="text-lg font-bold mb-4">Contact Details</h2>
-      {/* Add search and filter UI */}
-      <div>
-        {/* Search input */}
+      <div className="mb-4">
         <input
           type="text"
           placeholder="Search contacts..."
           value={searchQuery}
           onChange={e => setSearchQuery(e.target.value)}
+          className="border border-gray-300 rounded-md py-2 px-4 w-full"
         />
-        {/* Subscription filter */}
-        <select
-          value={subscriptionFilter}
-          onChange={e => setSubscriptionFilter(e.target.value)}
-        >
-          <option value="">All</option>
-          <option value="Yes">Yes</option>
-          <option value="No">No</option>
-        </select>
       </div>
-      {/* Contacts table */}
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Message</th>
-            <th>Subscription</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredContacts.map(contact => (
-            <tr key={contact._id}>
-              <td>{contact.name}</td>
-              <td>{contact.email}</td>
-              <td>{contact.phone}</td>
-              <td onClick={() => handleShowMessage(contact.message)}>
-                {truncateMessage(contact.message, 50)}
-              </td>
-              <td>{contact.option}</td>
-              <td>
-                <button onClick={() => handleEdit(contact)}>Edit</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      {/* Display selected message */}
-      {selectedMessage && (
-        <div>
-          <h3>Selected Message</h3>
-          <p>{selectedMessage}</p>
-        </div>
-      )}
-      {/* Edit contact form */}
-      {editContact && (
-        <form onSubmit={handleEditSubmit}>
+      <div className="mb-4">
+        <span className="mr-2">Satisfaction:</span>
+        <label className="mr-4">
           <input
-            type="text"
-            name="name"
-            value={editContact.name}
-            onChange={handleEditChange}
+            type="radio"
+            name="satisfactionFilter"
+            value=""
+            checked={satisfactionFilter === ''}
+            onChange={() => setSatisfactionFilter('')}
+            className="mr-1"
           />
-          {/* Add other input fields */}
-          <button type="submit">Save</button>
-        </form>
+          All
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="satisfactionFilter"
+            value="Yes"
+            checked={satisfactionFilter === 'Yes'}
+            onChange={() => setSatisfactionFilter('Yes')}
+            className="mr-1"
+          />
+          Yes
+        </label>
+        <label className="ml-4">
+          <input
+            type="radio"
+            name="satisfactionFilter"
+            value="No"
+            checked={satisfactionFilter === 'No'}
+            onChange={() => setSatisfactionFilter('No')}
+            className="mr-1"
+          />
+          No
+        </label>
+      </div>
+      <div className="overflow-x-auto">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Phone</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Message</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Satisfaction</th>
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {filteredContacts.map(contact => (
+              <tr key={contact._id}>
+                <td className="px-6 py-4 whitespace-nowrap">{contact.name}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{contact.email}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{contact.phone}</td>
+                <td className="px-6 py-4 whitespace-nowrap cursor-pointer" onClick={() => handleShowMessage(contact.message)}>
+                  {truncateMessage(contact.message, 50)}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">{contact.satisfaction}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {selectedMessage && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-4 rounded-md">
+            <h3 className="text-lg font-semibold mb-2">Message</h3>
+            <p>{selectedMessage}</p>
+            <button className="mt-4 px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded-md" onClick={() => setSelectedMessage(null)}>Close</button>
+          </div>
+        </div>
       )}
     </div>
   );
 };
 
-export default ContactUser;
+export default DashContact;
