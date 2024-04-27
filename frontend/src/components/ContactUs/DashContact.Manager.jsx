@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
+import jsPDF from 'jspdf';
 
-const DashContact = () => {
+const ContactManager = () => {
   const [contacts, setContacts] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [satisfactionFilter, setSatisfactionFilter] = useState('');
@@ -43,6 +44,29 @@ const DashContact = () => {
 
   const handleShowMessage = (message) => {
     setSelectedMessage(message);
+  };
+
+  const generatePDF = () => {
+    const doc = new jsPDF();
+    let y = 10;
+    doc.text('Contact Details', 10, y);
+    y += 10;
+
+    filteredContacts.forEach(contact => {
+      doc.text(`Name: ${contact.name}`, 10, y);
+      y += 10;
+      doc.text(`Email: ${contact.email}`, 10, y);
+      y += 10;
+      doc.text(`Phone: ${contact.phone}`, 10, y);
+      y += 10;
+      doc.text(`Message: ${truncateMessage(contact.message, 50)}`, 10, y);
+      y += 10;
+      doc.text(`Satisfaction: ${contact.satisfaction}`, 10, y);
+      y += 10;
+      y += 5; // Add some spacing between each contact
+    });
+
+    doc.save('contacts.pdf');
   };
 
   return (
@@ -119,6 +143,9 @@ const DashContact = () => {
           </tbody>
         </table>
       </div>
+      <div className="mt-4">
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={generatePDF}>Download PDF</button>
+      </div>
       {selectedMessage && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-4 rounded-md">
@@ -132,4 +159,4 @@ const DashContact = () => {
   );
 };
 
-export default DashContact;
+export default ContactManager;

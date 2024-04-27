@@ -12,7 +12,7 @@ import SignIn from "./pages/SignIn";
 import PrivateRoute from './components/PrivateRoute';
 
 import ContactUs from "./pages/ContactUs/ContactUs";
-import ContactList from "./pages/ContactUs/ContactList";
+
 
 import Dashboard from './pages/Dashboard'
 
@@ -31,7 +31,7 @@ export const App = () => {
         <Route path="/events" element={<Events />} />
         <Route path="/packages" element={<Packages />} />
         <Route path="/ContactUs" element={<ContactUs />} />
-        <Route path="/ContactList" element={<ContactList />} />
+
 
         <Route element={<PrivateRoute />}>
           <Route path='/dashboard' element={<Dashboard />} />

@@ -71,7 +71,7 @@ export default function DashSidebar() {
               </Sidebar.Item>
             </Link>,
             
-            <Link to='/dashboard?tab=ContacManagert'>
+            <Link to='/dashboard?tab=ContactManager'>
             <Sidebar.Item
               active={tab === 'ContactManager'}
               as='div'

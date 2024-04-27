@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 
 const ContactUsForm = () => {
@@ -9,9 +9,8 @@ const ContactUsForm = () => {
     message: '',
     satisfaction: 'Yes', // Default value
   });
-  const [successMessage, setSuccessMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [message, setMessage] = useState('');
+  const [isError, setIsError] = useState(false);
 
   const handleChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,7 +20,8 @@ const ContactUsForm = () => {
     e.preventDefault();
     try {
       const response = await axios.post('/api/contact', formData);
-      setSuccessMessage(response.data.message);
+      setMessage(response.data.message);
+      setIsError(false);
       setFormData({
         name: '',
         email: '',
@@ -29,9 +29,9 @@ const ContactUsForm = () => {
         message: '',
         satisfaction: 'Yes',
       });
-      setIsSubmitted(true);
     } catch (error) {
-      setErrorMessage(error.response.data.message);
+      setMessage(error.response.data.message);
+      setIsError(true);
     }
   };
 
@@ -116,17 +116,12 @@ const ContactUsForm = () => {
           >
             Submit
           </button>
+          {message && (
+            <div className={`mt-4 ${isError ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'} border border-${isError ? 'red' : 'green'}-400 px-4 py-2 rounded-md text-center`}>
+              {message}
+            </div>
+          )}
         </form>
-        {successMessage && isSubmitted && (
-          <div className="mt-4 bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded-md">
-            {successMessage}
-          </div>
-        )}
-        {errorMessage && (
-          <div className="mt-4 bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded-md">
-            {errorMessage}
-          </div>
-        )}
       </div>
     </div>
   );
