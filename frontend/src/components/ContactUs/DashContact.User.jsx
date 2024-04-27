@@ -70,7 +70,8 @@ const DashContact = () => {
     try {
       setLoading(true);
       setError(null);
-      const response = await axios.put(`/api/contact/${updatedContact._id}`, updatedContact);
+      const { email, ...contactData } = updatedContact; // Exclude email from updated contact
+      const response = await axios.put(`/api/contact/${updatedContact._id}`, contactData);
       const updatedContactIndex = contacts.findIndex(contact => contact._id === updatedContact._id);
       const updatedContacts = [...contacts];
       updatedContacts[updatedContactIndex] = response.data;
@@ -206,6 +207,7 @@ const DashContact = () => {
 
 const EditContactForm = ({ contact, onUpdateContact, onCancel }) => {
   const [updatedContact, setUpdatedContact] = useState({ ...contact });
+  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -217,18 +219,28 @@ const EditContactForm = ({ contact, onUpdateContact, onCancel }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!updatedContact.name || !updatedContact.phone || !updatedContact.message) {
+      setError("Please fill in all required fields.");
+      return;
+    }
+    if (!validatePhone(updatedContact.phone)) {
+      setError("Please enter a valid phone number.");
+      return;
+    }
     onUpdateContact(updatedContact);
+  };
+
+  const validatePhone = phone => {
+    const re = /^\d{10}$/;
+    return re.test(phone);
   };
 
   return (
     <form onSubmit={handleSubmit}>
+      {error && <div className="text-red-500 mb-4">{error}</div>}
       <div className="mb-4">
         <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
         <input type="text" id="name" name="name" value={updatedContact.name} onChange={handleChange} className="border border-gray-300 rounded-md py-2 px-4 w-full" />
-      </div>
-      <div className="mb-4">
-        <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-        <input type="email" id="email" name="email" value={updatedContact.email} onChange={handleChange} className="border border-gray-300 rounded-md py-2 px-4 w-full" />
       </div>
       <div className="mb-4">
         <label htmlFor="phone" className="block text-sm font-medium text-gray-700">Phone</label>
