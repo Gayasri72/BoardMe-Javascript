@@ -1,4 +1,4 @@
-import React from "react";
+
 
 const Aboutus = () => {
   return (
@@ -23,17 +23,16 @@ const Aboutus = () => {
                       className="w-full rounded-2xl"
                     />
                   </div>
-                  <div className="w-full px-3 sm:px-4 xl:w-1/2">
+                </div>
+                <div className="w-full px-3 sm:px-4 xl:w-1/2">
                   <div className="relative z-10 my-4">
                     <img
-                      src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.alamy.com%2Fgroup-of-happy-coworkers-talking-discussing-something-and-smiling-while-working-together-in-coworking-space-vertical-shot-image387368699.html&psig=AOvVaw0RiHtvY6-_i_d73z-ODnXR&ust=1714353906576000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCOj24pfg44UDFQAAAAAdAAAAABAE"
+                      src="https://www.shutterstock.com/image-photo/group-international-university-students-having-600nw-264406220.jpg"
                       alt=""
                       className="w-full rounded-2xl"
                     />
                   </div>
                 </div>
-                </div>
-               
               </div>
             </div>
             <div className="w-full px-4 lg:w-1/2 xl:w-5/12">

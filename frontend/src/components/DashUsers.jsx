@@ -1,8 +1,9 @@
 import { Modal, Table, Button } from 'flowbite-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { FaCheck, FaTimes } from 'react-icons/fa';
+import {useReactToPrint} from 'react-to-print'
 
 
 
@@ -77,7 +78,13 @@ export default function DashUsers() {
   });
 
 
-
+const ComponentsRef=useRef()
+const handlePrint=useReactToPrint({
+  content:()=>ComponentsRef.current,
+  DocumentTitle:"Users Report",
+  onafterprint:()=>alert("Pdf sucessfully download")
+                         
+})
   
 
   return (
@@ -93,7 +100,7 @@ export default function DashUsers() {
       </div>
       {currentUser.isAdmin && filteredUsers.length > 0 ? (
         <>
-          <Table hoverable className='shadow-md'>
+          <Table hoverable className='shadow-md' ref={ComponentsRef}>
             <Table.Head>
               <Table.HeadCell>Date created</Table.HeadCell>
               <Table.HeadCell>User image</Table.HeadCell>
@@ -175,7 +182,7 @@ export default function DashUsers() {
           </div>
         </Modal.Body>
       </Modal>
-     
+     <Button onClick={handlePrint}>Download</Button>
     </div>
   );
 }
