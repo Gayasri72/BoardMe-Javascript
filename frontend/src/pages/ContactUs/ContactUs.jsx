@@ -7,7 +7,7 @@ const ContactUsForm = () => {
     email: '',
     phone: '',
     message: '',
-    satisfaction: 'Yes', // Default value
+    satisfaction: 'Yes', 
   });
   const [message, setMessage] = useState('');
   const [isError, setIsError] = useState(false);
