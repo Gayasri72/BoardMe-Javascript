@@ -79,6 +79,7 @@ export default function SignUp() {
                 onChange={handleChange}
               />
             </div>
+          
             <Button
               gradientDuoTone="purpleToPink"
               type="submit"
