@@ -10,9 +10,11 @@ export const signup = async (req, res, next) => {
     !username ||
     !email ||
     !password ||
+    
     username === "" ||
     email === "" ||
     password === ""
+    
   ) {
     return next(errorHandler(400, 'All fields are required'));
   }
@@ -23,6 +25,7 @@ export const signup = async (req, res, next) => {
     username,
     email,
     password: hashedPassword,
+    
   });
 
   try {
@@ -49,6 +52,10 @@ export const signin = async (req, res, next) => {
     if (!validPassword) {
       return next(errorHandler(400, 'Invalid credentials'));
     }
+
+    validUser.lastLogin = Date.now();
+    await validUser.save();
+    
     const token = jwt.sign({ id: validUser._id, isAdmin:validUser.isAdmin }, process.env.JWT_SECRET);
 
     const { password: pass, ...rest } = validUser._doc;

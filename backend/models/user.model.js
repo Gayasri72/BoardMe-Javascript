@@ -16,6 +16,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+   
     profilePicture: {
       type: String,
       default:
@@ -25,6 +26,10 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       
       default: false,
+    },
+    lastLogin: {
+      type: Date,
+      default: Date.now,
     },
   },
   { timestamps: true }
