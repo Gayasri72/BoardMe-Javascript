@@ -19,8 +19,8 @@ const ContactUsForm = () => {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/contact', formData);
-      setMessage(response.data.message);
+      await axios.post('/api/contact', formData);
+      setMessage('Your message has been sent successfully!');
       setIsError(false);
       setFormData({
         name: '',
@@ -30,7 +30,7 @@ const ContactUsForm = () => {
         satisfaction: 'Yes',
       });
     } catch (error) {
-      setMessage(error.response.data.message);
+      setMessage('There was an error sending your message. Please try again later.');
       setIsError(true);
     }
   };
