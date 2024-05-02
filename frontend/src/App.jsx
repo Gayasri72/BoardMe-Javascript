@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home } from "./pages/Home";
-import { About } from "./pages/About";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { Spaces } from "./pages/Spaces";
@@ -12,6 +11,7 @@ import SignIn from "./pages/SignIn";
 import PrivateRoute from './components/PrivateRoute';
 
 import Dashboard from './pages/Dashboard'
+import About from "./pages/About";
 
 export const App = () => {
   return (
@@ -21,8 +21,7 @@ export const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/about" element={<About />} />
-        
+        <Route path="/aboutus" element={<About/>} />
         <Route path="/spaces" element={<Spaces />} />
         <Route path="/services" element={<Services />} />
         <Route path="/events" element={<Events />} />
