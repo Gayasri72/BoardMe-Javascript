@@ -16,11 +16,13 @@ Malitha Parikalpa - Package Management
 
 Malshan Shalinda-Payament Management
 
-Janenedra-Space Booking Management
+Janenedra de silva-Space Booking Management
 
-Rushan- Space Listing Management
+Rushan ubayawarna- Space Listing Management
 
 Prabodha Nethmini-Advertisement Management
+
+Chamodhi-Event Management function
 
 
 
