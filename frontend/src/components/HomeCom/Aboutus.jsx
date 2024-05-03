@@ -1,4 +1,4 @@
-import React from "react";
+
 
 const Aboutus = () => {
   return (
@@ -27,7 +27,7 @@ const Aboutus = () => {
                 <div className="w-full px-3 sm:px-4 xl:w-1/2">
                   <div className="relative z-10 my-4">
                     <img
-                      src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.costabrown.com%2Fthe-wing-wall-tiles&psig=AOvVaw2RQndWThgamMCXDo0sHm__&ust=1710908323721000&source=images&cd=vfe&opi=89978449&ved=0CBMQjRxqFwoTCODokqm8_4QDFQAAAAAdAAAAABAR"
+                      src="https://www.shutterstock.com/image-photo/group-international-university-students-having-600nw-264406220.jpg"
                       alt=""
                       className="w-full rounded-2xl"
                     />
