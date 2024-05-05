@@ -4,7 +4,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { Spaces } from "./pages/Spaces";
 import { Services } from "./pages/Services";
-import { Events } from "./pages/Events";
+import EventList from "./pages/Events";
 import { Packages } from "./pages/Packages";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
@@ -15,6 +15,9 @@ import ContactUs from "./pages/ContactUs/ContactUs";
 
 import Dashboard from './pages/Dashboard'
 import About from "./pages/About";
+import EventCreate from "./pages/EventCreate";
+import EventHome from "./pages/EventHome";
+import EventRequestList from "./pages/EventRequest";
 
 export const App = () => {
   return (
@@ -27,13 +30,16 @@ export const App = () => {
         <Route path="/aboutus" element={<About/>} />
         <Route path="/spaces" element={<Spaces />} />
         <Route path="/services" element={<Services />} />
-        <Route path="/events" element={<Events />} />
+        <Route path="/events" element={<EventList />} />
+        <Route path="/event-home" element={<EventHome />} />
+        <Route path="/create-event" element={<EventCreate />} />
         <Route path="/packages" element={<Packages />} />
         <Route path="/ContactUs" element={<ContactUs />} />
-
+        <Route path="/manage" element={<EventRequestList />} />
 
         <Route element={<PrivateRoute />}>
           <Route path='/dashboard' element={<Dashboard />} />
+          
         </Route>
 
       </Routes>

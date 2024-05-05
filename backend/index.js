@@ -5,6 +5,9 @@ import userRouter from "./routes/user.route.js";
 import authRouter from "./routes/auth.route.js";
 import contactRouter from "./routes/contact.routes.js";
 import cookieParser from "cookie-parser";
+import cors from 'cors'
+import morgan from "morgan";
+import eventRouter from "./routes/EventRoutes.js";
 dotenv.config();
 mongoose
   .connect(process.env.MONGO)
@@ -21,6 +24,11 @@ app.use(cookieParser());
 app.listen(3000, () => {
   console.log("server running on port 3000");
 });
+
+app.use('/uploads', express.static('uploads'));
+app.use(cors());
+app.use(morgan('dev'));
+app.use('/event',eventRouter)
 
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);

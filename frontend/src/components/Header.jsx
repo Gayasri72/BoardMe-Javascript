@@ -20,8 +20,20 @@ const inside_nav = [
     display: "Events",
   },
   {
+    path: "/create-event",
+    display: "Create Event",
+  },
+  {
+    path: "/event-home",
+    display: "Event Home",
+  },
+  {
     path: "/services",
     display: "Services",
+  },
+  {
+    path: "/manage",
+    display: "Event Manager",
   },
 ];
 
