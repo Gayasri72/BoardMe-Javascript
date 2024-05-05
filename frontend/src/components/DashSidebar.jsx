@@ -69,8 +69,9 @@ export default function DashSidebar() {
               >
                 Users
               </Sidebar.Item>
-            </Link>,
-            
+            </Link>
+          )}
+           {currentUser.isAdmin && (
             <Link to='/dashboard?tab=ContactManager'>
             <Sidebar.Item
               active={tab === 'ContactManager'}
@@ -79,8 +80,8 @@ export default function DashSidebar() {
               Contact Details
             </Sidebar.Item>
           </Link>
-            
-          )}
+           )}
+          
            {!currentUser.isAdmin && (
             
             <Link to='/dashboard?tab=ContactUser'>
