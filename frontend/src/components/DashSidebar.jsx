@@ -81,6 +81,30 @@ export default function DashSidebar() {
               </Sidebar.Item>
             </Link>
           )}
+           {currentUser.isAdmin && (
+            <Link to='/dashboard?tab=ContactManager'>
+            <Sidebar.Item
+              active={tab === 'ContactManager'}
+              as='div'
+            >
+              Contact Details
+            </Sidebar.Item>
+          </Link>
+           )}
+          
+           {!currentUser.isAdmin && (
+            
+            <Link to='/dashboard?tab=ContactUser'>
+            <Sidebar.Item
+              active={tab === 'ContactUser'}
+              as='div'
+            >
+              Contact Details
+            </Sidebar.Item>
+          </Link>
+            
+          )}
+          
           <Sidebar.Item
             icon={HiArrowSmRight}
             className='cursor-pointer'
@@ -88,6 +112,7 @@ export default function DashSidebar() {
           >
             Sign Out
           </Sidebar.Item>
+          
         </Sidebar.ItemGroup>
       </Sidebar.Items>
     </Sidebar>
