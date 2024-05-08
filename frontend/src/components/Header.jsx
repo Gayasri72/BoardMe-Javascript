@@ -106,7 +106,7 @@ const handleSignout = async () => {
             </Menu.Items>
           </Transition>
         </Menu>
-        <Link to="/listing" className="text-black">Listings</Link>
+        <Link to="/packages" className="text-black">Listings</Link>
       </div>
       <div className="">
       <Button
@@ -207,7 +207,7 @@ const handleSignout = async () => {
             </Menu>
           </li>
           <li className="p-4 border-b border-gray-600">
-            <Link to="/listing">Listings</Link>
+            <Link to="/packages">Listings</Link>
           </li>
         
          
