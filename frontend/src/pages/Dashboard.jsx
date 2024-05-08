@@ -4,6 +4,8 @@ import DashSidebar from "../components/DashSidebar";
 import DashProfile from "../components/DashProfile";
 import DashUsers from '../components/DashUsers';
 import DashboardComp from '../components/DashboardComp';
+import PackageList from "../components/package/ShowPackage.jsx";
+
 
 export default function Dashboard() {
   const location = useLocation();
@@ -25,6 +27,8 @@ export default function Dashboard() {
       {tab === "profile" && <DashProfile />}
       {tab === 'users' && <DashUsers />}
       {tab === 'dash' && <DashboardComp />}
+      {tab === 'AddPackage' && <PackageList />}
+      
     </div>
   );
 }

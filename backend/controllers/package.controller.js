@@ -5,7 +5,7 @@ const packageController = {
     async getAllPackages(req, res, next) {
         try {
             const packages = await Package.find();
-            res.status(200).json(packages);
+            res.status(200).json({ success: true, data: packages });
         } catch (error) {
             next(error);
         }
@@ -25,15 +25,13 @@ const packageController = {
         }
     },
 
-    // Create a new package
     async createPackage(req, res, next) {
         try {
-            const { pac_name, features, price, speed } = req.body;
+            const { pac_name, features, price } = req.body; // Remove 'speed' from here
             const newPackage = new Package({
                 pac_name,
                 features,
-                price,
-                speed
+                price
             });
             const savedPackage = await newPackage.save();
             res.status(201).json(savedPackage);
@@ -41,17 +39,15 @@ const packageController = {
             next(error);
         }
     },
-
-    // Update a package
+    
     async updatePackage(req, res, next) {
         try {
             const packageId = req.params.id;
-            const { pac_name, features, price, speed } = req.body;
+            const { pac_name, features, price } = req.body; // Remove 'speed' from here
             const updatedPackage = await Package.findByIdAndUpdate(packageId, {
                 pac_name,
                 features,
-                price,
-                speed
+                price
             }, { new: true });
             if (!updatedPackage) {
                 return res.status(404).json({ message: "Package not found" });

@@ -12,14 +12,11 @@ const packageSchema = new mongoose.Schema({
     price: {
         type: String,
         required: true
-    },
-    speed: {
-        type: String,
-        required: true
     }
 }, {
     timestamps: true
 });
+
 
 const Package = mongoose.model("Package", packageSchema);
 

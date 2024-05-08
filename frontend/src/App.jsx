@@ -5,13 +5,13 @@ import Footer from "./components/Footer";
 import { Spaces } from "./pages/Spaces";
 import { Services } from "./pages/Services";
 import { Events } from "./pages/Events";
-import { Packages } from "./pages/Packages";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import PrivateRoute from './components/PrivateRoute';
 
 import Dashboard from './pages/Dashboard'
 import About from "./pages/About";
+import Packages from "./pages/Packages";
 
 export const App = () => {
   return (

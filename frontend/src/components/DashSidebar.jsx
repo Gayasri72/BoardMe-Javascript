@@ -47,7 +47,17 @@ export default function DashSidebar() {
               >
                 Dashboard
               </Sidebar.Item>
+            </Link>,
+
+            <Link to='/dashboard?tab=AddPackage'>
+            <Sidebar.Item
+              active={tab === 'AddPackage'} 
+              as='div'
+            >
+              Package
+            </Sidebar.Item>
             </Link>
+
           )}
           <Link to='/dashboard?tab=profile'>
             <Sidebar.Item
