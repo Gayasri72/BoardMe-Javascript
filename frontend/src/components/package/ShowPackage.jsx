@@ -1,7 +1,7 @@
 import  { useState, useEffect } from 'react';
 import axios from 'axios';
 import AddPackage from './AddPckage';
-import { js } from 'jspdf';
+import { jsPDF } from 'jspdf';
 
 
 function ShowPackage() {
