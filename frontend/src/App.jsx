@@ -13,6 +13,11 @@ import ContactUs from "./pages/ContactUs/ContactUs";
 
 
 import Dashboard from './pages/Dashboard'
+import Createadvertisement from "./pages/CreateAdvertisement";
+import MyAds from "./pages/MyAds";
+import Search from "./pages/Search";
+
+
 import About from "./pages/About";
 import Packages from "./pages/Packages";
 
@@ -27,8 +32,11 @@ export const App = () => {
         <Route path="/aboutus" element={<About/>} />
         <Route path="/spaces" element={<Spaces />} />
         <Route path="/services" element={<Services />} />
+        <Route path="/advertisments" element={<Createadvertisement />} />
+        <Route path="/myads" element={<MyAds />} />
         <Route path="/events" element={<Events />} />
         <Route path="/packages" element={<Packages />} />
+        <Route path="/search" element={<Search />} />
         <Route path="/ContactUs" element={<ContactUs />} />
 
 
