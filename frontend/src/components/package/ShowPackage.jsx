@@ -110,16 +110,16 @@ function ShowPackage() {
     let y = 10;
   
     doc.text('Package Details', 10, y);
-    y += 10;
+    y += 20;
   
     filteredData.forEach(pkg => {
       doc.text(`Package Name: ${pkg.pac_name}`, 10, y);
       y += 10;
       doc.text(`Description: ${pkg.features}`, 10, y); // Move this line up
-      y += 10; // Increment y here instead
+      y += 15; // Increment y here instead
       doc.text(`Price: ${pkg.price}`, 10, y);
-      y += 10;
-      y += 5; // Add some spacing between each package
+      y += 5;
+      y += 20; // Add some spacing between each package
     });
   
     doc.save('packages.pdf');
@@ -135,12 +135,15 @@ function ShowPackage() {
           onChange={handleSearch}
         />
       </div>
-      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4" onClick={() => setAddSection(true)}>
-        Add
-      </button>
-      <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4" onClick={generatePDF}>
-        Generate PDF
-      </button>
+      <div>
+    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4" onClick={() => setAddSection(true)}>
+      Add
+    </button>
+    <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4 ml-4" onClick={generatePDF}>
+      Generate PDF
+    </button>
+  </div>
+
       {addSection || editSection ? (
         <AddPackage
           handleSubmit={handleSubmit}
