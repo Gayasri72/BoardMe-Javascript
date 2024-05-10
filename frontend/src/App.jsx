@@ -18,7 +18,7 @@ import MyAds from "./pages/MyAds";
 import Search from "./pages/Search";
 
 
-import About from "./pages/About";
+//import About from "./pages/About";
 import Packages from "./pages/Packages";
 
 export const App = () => {
