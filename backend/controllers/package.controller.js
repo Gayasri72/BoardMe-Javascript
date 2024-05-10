@@ -27,7 +27,7 @@ const packageController = {
 
     async createPackage(req, res, next) {
         try {
-            const { pac_name, features, price } = req.body; // Remove 'speed' from here
+            const { pac_name, features, price } = req.body; 
             const newPackage = new Package({
                 pac_name,
                 features,
@@ -43,7 +43,7 @@ const packageController = {
     async updatePackage(req, res, next) {
         try {
             const packageId = req.params.id;
-            const { pac_name, features, price } = req.body; // Remove 'speed' from here
+            const { pac_name, features, price } = req.body; 
             const updatedPackage = await Package.findByIdAndUpdate(packageId, {
                 pac_name,
                 features,
