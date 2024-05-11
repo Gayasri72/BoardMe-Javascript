@@ -19,6 +19,12 @@ const AddPackage = ({ handleClose, formData, updateData }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Validation check for price
+    const enteredPrice = parseFloat(packageDetails.price);
+    if (isNaN(enteredPrice) || enteredPrice <= 0) {
+      alert('Please enter a valid price');
+      return; // Exit the function if validation fails
+    }
     try {
       let res;
       if (packageDetails._id) {

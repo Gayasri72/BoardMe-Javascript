@@ -6,6 +6,7 @@ import authRouter from "./routes/auth.route.js";
 import contactRouter from "./routes/contact.routes.js";
 import cookieParser from "cookie-parser";
 import packageRouter from "./routes/package.route.js"
+
 import User from './models/user.model.js'
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
@@ -13,6 +14,10 @@ import bcrypt from "bcryptjs";
 
 
 
+
+import Advertisement from "./routes/Advertisement.route.js";
+import morgan from "morgan";
+import cors from 'cors'
 
 dotenv.config();
 mongoose
@@ -25,6 +30,8 @@ mongoose
   });
 
 const app = express();
+app.use(morgan('dev'))
+app.use(cors())
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
@@ -36,6 +43,9 @@ app.set('view engine', 'ejs');
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/package", packageRouter);
+
+app.use("/api/advertisement", Advertisement);
+
 app.use("/api/contact", contactRouter);
 
 //reset password
