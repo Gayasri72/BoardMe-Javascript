@@ -25,7 +25,7 @@ export const App = () => {
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
+        {/* <Route path="/" element={<Home />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/aboutus" element={<About />} />
@@ -35,7 +35,7 @@ export const App = () => {
         <Route path="/events" element={<Events />} />
         <Route path="/packages" element={<Packages />} />
         <Route path="/search" element={<Search />} />
-        <Route path="/ContactUs" element={<ContactUs />} />
+        <Route path="/ContactUs" element={<ContactUs />} /> */}
         <Route element={<PrivateRoute />}>
           <Route path="/advertisments" element={<Createadvertisement />} />
         </Route>
