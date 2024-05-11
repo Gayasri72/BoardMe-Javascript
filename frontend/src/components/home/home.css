@@ -1,0 +1,125 @@
+.home-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #ade3fa26; /* Add background color */
+}
+
+.sidebar {
+    width: 300px;
+    background-color: #b7babb37;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    right: 20px;
+
+}
+
+.sidebar-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.selection-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.selection-item {
+    background-color: rgb(51, 161, 246);
+    width: 150px;
+    height: 30px;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.selection-item.active {
+    background-color: rgb(51, 161, 246);
+}
+
+.content {
+    width: calc(100% - 320px); /* Adjust width to accommodate sidebar */
+    background-color: #b7babb37;
+    padding: 20px;
+    border-radius: 8px;
+    max-height: 80vh;
+    width: 800px;
+    overflow-y: auto;
+    margin-left: 20px;
+}
+
+.search-input {
+    margin-top: 0px; /* Adjust margin-top */
+    margin-bottom: 20px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ffffff;
+    width: calc(100% - 40px); /* Adjust width */
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.card {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    background-color: #ebebebc1;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 600px;
+    position: relative;
+    right: -80px;
+}
+
+.image-container {
+    margin-right: 20px;
+}
+
+.card-image {
+    width: 150px;
+    height: 180px;
+    border-radius: 8px;
+}
+
+.card-details {
+    flex: 1;
+}
+
+.card-name {
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.card-detail,
+.card-type,
+.card-amount {
+    margin-bottom: 8px;
+}
+
+.quick-quote-link {
+    text-decoration: none;
+}
+
+.quick-quote-btn {
+    background-color: rgb(51, 161, 246);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}

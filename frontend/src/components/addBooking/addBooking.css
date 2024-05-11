@@ -1,0 +1,107 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.card-Book {
+    background-color: #dce3e8cc;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    width: 500px;
+    max-width: 90%;
+    margin: 20px;
+}
+
+.title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.subtitle {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.input {
+    width: 480px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+
+.options {
+    display: flex;
+    flex-wrap: wrap; /* Allow buttons to wrap to the next line if needed */
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.options button {
+    padding: 10px 30px;
+    margin-bottom: 10px; /* Add margin between buttons */
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #ccc;
+}
+
+
+
+.options button.selected {
+    background-color: rgb(51, 161, 246);
+    color: white;
+}
+
+.btn-container-a {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.btn {
+    background-color: rgb(51, 161, 246);
+    color: rgb(255, 255, 255);
+    padding: 10px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: rgb(51, 161, 246);
+}
+
+.hr {
+    border-top: 1px solid #ccc;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.booking-details-form {
+    margin-bottom: 20px;
+}
+
+.booking-details-form label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.booking-details-form input {
+    width: calc(100% - 22px);
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+}
+
+.booking-details-form input:disabled {
+    background-color: #f0f0f0;
+    color: #555;
+}
+

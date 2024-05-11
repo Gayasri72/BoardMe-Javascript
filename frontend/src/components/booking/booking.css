@@ -1,0 +1,46 @@
+.booking-container {
+    margin: 20px;
+  }
+  
+  .booking-heading {
+    text-align: center;
+  }
+  
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  .search-input {
+    width: 200px; /* Adjust the width as needed */
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    position: absolute; /* Position the search input absolutely */
+    top: 10px; /* Adjust top position as needed */
+    right: 20px; /* Adjust right position as needed */
+  }
+  .download-button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(51, 161, 246);
+    color: #fff;
+    cursor: pointer;
+  }
+
+  
+.download-button:hover {
+    background-color: rgb(51, 161, 246);
+  }
