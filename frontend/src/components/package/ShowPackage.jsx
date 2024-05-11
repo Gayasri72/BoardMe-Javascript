@@ -102,8 +102,9 @@ function ShowPackage() {
 
   const filteredData = dataList.filter((item) =>
     item.pac_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    item.price.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+    item.price.includes(searchQuery)
+);
+
 
   const generatePDF = () => {
     const doc = new jsPDF();
@@ -133,6 +134,7 @@ function ShowPackage() {
           className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           value={searchQuery}
           onChange={handleSearch}
+          
         />
       </div>
       <div>
