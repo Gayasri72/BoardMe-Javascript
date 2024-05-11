@@ -8,13 +8,16 @@ import { Events } from "./pages/Events";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import PrivateRoute from './components/PrivateRoute';
-
 import ContactUs from "./pages/ContactUs/ContactUs";
-
-
 import Dashboard from './pages/Dashboard'
 import About from "./pages/About";
 import Packages from "./pages/Packages";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
+
+
+
+
 
 export const App = () => {
   return (
@@ -30,6 +33,8 @@ export const App = () => {
         <Route path="/events" element={<Events />} />
         <Route path="/packages" element={<Packages />} />
         <Route path="/ContactUs" element={<ContactUs />} />
+        <Route path="/forgot-password" element={<ForgotPassword />}></Route>
+       <Route path="/reset-password/:id/:token" element={<ResetPassword/>}/>
 
 
         <Route element={<PrivateRoute />}>

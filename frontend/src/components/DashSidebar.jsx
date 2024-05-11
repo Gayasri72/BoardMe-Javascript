@@ -70,6 +70,7 @@ export default function DashSidebar() {
               Profile
             </Sidebar.Item>
           </Link>
+
           {currentUser.isAdmin && (
             <Link to='/dashboard?tab=users'>
               <Sidebar.Item
@@ -81,6 +82,7 @@ export default function DashSidebar() {
               </Sidebar.Item>
             </Link>
           )}
+          
            {currentUser.isAdmin && (
             <Link to='/dashboard?tab=ContactManager'>
             <Sidebar.Item

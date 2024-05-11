@@ -6,6 +6,11 @@ import authRouter from "./routes/auth.route.js";
 import contactRouter from "./routes/contact.routes.js";
 import cookieParser from "cookie-parser";
 import packageRouter from "./routes/package.route.js"
+import User from './models/user.model.js'
+import jwt from "jsonwebtoken";
+import nodemailer from 'nodemailer';
+
+
 
 dotenv.config();
 mongoose
@@ -23,12 +28,61 @@ app.use(cookieParser());
 app.listen(3000, () => {
   console.log("server running on port 3000");
 });
-
+app.set('view engine', 'ejs');
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/package", packageRouter);
-
 app.use("/api/contact", contactRouter);
+
+
+app.get("/reset-password/:id/:token", async (req, res) => {
+  const { id, token } = req.params;
+  console.log(req.params);
+  const oldUser = await User.findOne({ _id: id });
+  if (!oldUser) {
+    return res.json({ status: "User Not Exists!!" });
+  }
+  const secret = process.env.JWT_SECRET + oldUser.password;
+  try {
+    const verify = jwt.verify(token, secret);
+    res.render("index", { email: verify.email, status: "Not Verified" });
+  } catch (error) {
+    console.log(error);
+    res.send("Not Verified");
+  }
+});
+
+app.post("/reset-password/:id/:token", async (req, res) => {
+  const { id, token } = req.params;
+  const { password } = req.body;
+
+  const oldUser = await User.findOne({ _id: id });
+  if (!oldUser) {
+    return res.json({ status: "User Not Exists!!" });
+  }
+  const secret = process.env.JWT_SECRET + oldUser.password;
+  try {
+    const verify = jwt.verify(token, secret);
+    const encryptedPassword = await bcrypt.hash(password, 10);
+    await User.updateOne(
+      {
+        _id: id,
+      },
+      {
+        $set: {
+          password: encryptedPassword,
+        },
+      }
+    );
+
+    res.render("index", { email: verify.email, status: "verified" });
+  } catch (error) {
+    console.log(error);
+    res.json({ status: "Something Went Wrong" });
+  }
+});
+
+
 
 
 app.use((err, req, res, next) => {
@@ -40,3 +94,5 @@ app.use((err, req, res, next) => {
     message,
   });
 });
+
+
