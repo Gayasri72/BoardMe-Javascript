@@ -13,7 +13,7 @@ import Dashboard from './pages/Dashboard'
 import About from "./pages/About";
 import Packages from "./pages/Packages";
 import ForgotPassword from "./pages/ForgotPassword";
-import ResetPassword from "./pages/ResetPassword";
+
 
 
 
@@ -34,7 +34,7 @@ export const App = () => {
         <Route path="/packages" element={<Packages />} />
         <Route path="/ContactUs" element={<ContactUs />} />
         <Route path="/forgot-password" element={<ForgotPassword />}></Route>
-       <Route path="/reset-password/:id/:token" element={<ResetPassword/>}/>
+      
 
 
         <Route element={<PrivateRoute />}>

@@ -8,7 +8,9 @@ import cookieParser from "cookie-parser";
 import packageRouter from "./routes/package.route.js"
 import User from './models/user.model.js'
 import jwt from "jsonwebtoken";
-import nodemailer from 'nodemailer';
+import bcrypt from "bcryptjs";
+
+
 
 
 
@@ -25,16 +27,18 @@ mongoose
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.urlencoded({ extended: false }));
 app.listen(3000, () => {
   console.log("server running on port 3000");
 });
+//view engine
 app.set('view engine', 'ejs');
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/package", packageRouter);
 app.use("/api/contact", contactRouter);
 
-
+//reset password
 app.get("/reset-password/:id/:token", async (req, res) => {
   const { id, token } = req.params;
   console.log(req.params);
@@ -51,7 +55,7 @@ app.get("/reset-password/:id/:token", async (req, res) => {
     res.send("Not Verified");
   }
 });
-
+//reset password
 app.post("/reset-password/:id/:token", async (req, res) => {
   const { id, token } = req.params;
   const { password } = req.body;

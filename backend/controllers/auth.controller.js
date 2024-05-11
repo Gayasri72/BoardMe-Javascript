@@ -2,6 +2,7 @@ import User from "../models/user.model.js";
 import bcryptjs from "bcryptjs";
 import errorHandler from "../utils/error.js";
 import jwt from "jsonwebtoken";
+import nodemailer from 'nodemailer';
 
 export const signup = async (req, res, next) => {
   const { username, email, password } = req.body;
@@ -134,18 +135,41 @@ export const forgetPass = async (req, res, next) => {
     if (!oldUser) {
       return res.status(404).json({ success: false, message: "User not found" });
     }
-    const secret =process.env.JWT_SECRET + oldUser.password;
+    const secret = process.env.JWT_SECRET + oldUser.password;
     const token = jwt.sign({ email: oldUser.email, id: oldUser._id }, secret, {
       expiresIn: "5m",
     });
     const link = `http://localhost:3000/reset-password/${oldUser._id}/${token}`;
     console.log(link);
-    // Send email with password reset link here if you have an email service configured
-    res.json({ success: true, message: "Password reset link sent successfully" });
+    
+    // Setting up nodemailer
+    var transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'gayasripethum1@gmail.com',
+        pass: 'jzxk vjwe mnlc cjij'
+      }
+    });
+
+    var mailOptions = {
+      from: 'youremail@gmail.com',
+      to: email, // Sending the email to the user's email address
+      subject: 'Reset Password', // Subject of the email
+      text: `Click the link to reset your password: ${link}`, // Email body
+    };
+
+    // Sending the email
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+        return res.status(500).json({ success: false, message: "Error sending email" });
+      } else {
+        console.log('Email sent: ' + info.response);
+        res.json({ success: true, message: "Password reset link sent successfully" });
+      }
+    });
   } catch (error) {
     console.error("Error in forgetPass:", error);
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 };
-
-
