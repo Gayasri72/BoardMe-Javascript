@@ -1,6 +1,7 @@
 import { Sidebar } from 'flowbite-react';
 import { HiUser, HiArrowSmRight,  HiChartPie, HiOutlineUserGroup } from 'react-icons/hi';
 import { TbPackageExport } from "react-icons/tb";
+import { IoMdContact } from "react-icons/io";
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { signoutSuccess } from '../redux/user/userSlice';
@@ -91,6 +92,7 @@ export default function DashSidebar() {
             <Link to='/dashboard?tab=ContactManager'>
             <Sidebar.Item
               active={tab === 'ContactManager'}
+              icon={IoMdContact}
               as='div'
             >
               Contact Details
