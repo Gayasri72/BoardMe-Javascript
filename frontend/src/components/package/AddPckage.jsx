@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import axios from 'axios';
 
+//add package
 const AddPackage = ({ handleClose, formData, updateData }) => {
   const [packageDetails, setPackageDetails] = useState({
     pac_name: '',

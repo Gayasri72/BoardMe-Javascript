@@ -1,4 +1,3 @@
-
 import { Sidebar } from 'flowbite-react';
 import { HiUser, HiArrowSmRight,  HiChartPie, HiOutlineUserGroup } from 'react-icons/hi';
 import { TbPackageExport } from "react-icons/tb";
@@ -6,14 +5,14 @@ import { IoMdContact } from "react-icons/io";
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { signoutSuccess } from '../redux/user/userSlice';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 export default function DashSidebar() {
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser } = useSelector(state => state.user);
   const location = useLocation();
   const dispatch = useDispatch();
   const [tab, setTab] = useState("");
+
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const tabFromUrl = urlParams.get("tab");
@@ -42,8 +41,7 @@ export default function DashSidebar() {
     <Sidebar className="w-full md:w-56">
       <Sidebar.Items>
         <Sidebar.ItemGroup>
-
-        {currentUser && currentUser.isAdmin && (
+          {currentUser && (
             <Link to='/dashboard?tab=dash'>
               <Sidebar.Item
                 active={tab === 'dash' || !tab}
@@ -52,55 +50,36 @@ export default function DashSidebar() {
               >
                 Dashboard
               </Sidebar.Item>
-            </Link>, 
-          )}
-
-          <Link to='/dashboard?tab=profile'>
-          {currentUser &&
-            currentUser.isAdmin &&
-            ((
-              <Link to="/dashboard?tab=dash">
-                <Sidebar.Item
-                  active={tab === "dash" || !tab}
-                  icon={HiChartPie}
-                  as="div"
-                >
-                  Dashboard
-                </Sidebar.Item>
-              </Link>
-            ),
-            (
-              <Link to="/dashboard?tab=AddPackage">
-                <Sidebar.Item active={tab === "AddPackage"} as="div">
-                  Package
-                </Sidebar.Item>
-              </Link>
-            ))}
-          <Link to="/dashboard?tab=profile">
-            <Sidebar.Item
-              active={tab === "profile"}
-              icon={HiUser}
-              label={currentUser.isAdmin ? "Admin" : "User"}
-              labelColor="dark"
-              as="div"
-            >
-              Profile
-            </Sidebar.Item>
-          </Link>
-
-          {currentUser.isAdmin && (
-          <Link to='/dashboard?tab=AddPackage'>
-            <Sidebar.Item
-              active={tab === 'AddPackage'} 
-              icon={TbPackageExport}
-              as='div'
-            >
-              Package
-            </Sidebar.Item>
             </Link>
           )}
-          
-          {currentUser.isAdmin && (
+
+          {currentUser && (
+            <Link to="/dashboard?tab=profile">
+              <Sidebar.Item
+                active={tab === "profile"}
+                icon={HiUser}
+                label={currentUser.isAdmin ? "Admin" : "User"}
+                labelColor="dark"
+                as="div"
+              >
+                Profile
+              </Sidebar.Item>
+            </Link>
+          )}
+
+          {currentUser && currentUser.isAdmin && (
+            <Link to='/dashboard?tab=AddPackage'>
+              <Sidebar.Item
+                active={tab === 'AddPackage'} 
+                icon={TbPackageExport}
+                as='div'
+              >
+                Package
+              </Sidebar.Item>
+            </Link>
+          )}
+
+          {currentUser && currentUser.isAdmin && (
             <Link to="/dashboard?tab=users">
               <Sidebar.Item
                 active={tab === "users"}
@@ -111,35 +90,25 @@ export default function DashSidebar() {
               </Sidebar.Item>
             </Link>
           )}
-<
-           {currentUser.isAdmin && (
+
+          {currentUser && currentUser.isAdmin && (
             <Link to='/dashboard?tab=ContactManager'>
-            <Sidebar.Item
-              active={tab === 'ContactManager'}
-              icon={IoMdContact}
-              as='div'
-            >
-              Contact Details
-            </Sidebar.Item>
-          </Link>
-           )}
-          
-           {!currentUser.isAdmin && (
-            
-            <Link to='/dashboard?tab=ContactUser'>
-            <Sidebar.Item
-              active={tab === 'ContactUser'}
-              as='div'
-            >
-              Contact Details
-            </Sidebar.Item>
-          </Link>
-            
-          
+              <Sidebar.Item
+                active={tab === 'ContactManager'}
+                icon={IoMdContact}
+                as='div'
+              >
+                Contact Details
+              </Sidebar.Item>
+            </Link>
+          )}
 
           {!currentUser.isAdmin && (
-            <Link to="/dashboard?tab=ContactUser">
-              <Sidebar.Item active={tab === "ContactUser"} as="div">
+            <Link to='/dashboard?tab=ContactUser'>
+              <Sidebar.Item
+                active={tab === 'ContactUser'}
+                as='div'
+              >
                 Contact Details
               </Sidebar.Item>
             </Link>
@@ -147,7 +116,10 @@ export default function DashSidebar() {
 
           {currentUser.isAdmin && (
             <Link to="/dashboard?tab=Ads">
-              <Sidebar.Item active={tab === "Ads"} as="div">
+              <Sidebar.Item
+                active={tab === "Ads"}
+                as="div"
+              >
                 Ads details
               </Sidebar.Item>
             </Link>
@@ -155,7 +127,10 @@ export default function DashSidebar() {
 
           {!currentUser.isAdmin && (
             <Link to="/dashboard?tab=MyAds">
-              <Sidebar.Item active={tab === "MyAds"} as="div">
+              <Sidebar.Item
+                active={tab === "MyAds"}
+                as="div"
+              >
                 My ads
               </Sidebar.Item>
             </Link>
