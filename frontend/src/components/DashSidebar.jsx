@@ -49,10 +49,7 @@ export default function DashSidebar() {
               >
                 Dashboard
               </Sidebar.Item>
-            </Link>,
-
-            
-
+            </Link>, 
           )}
 
           <Link to='/dashboard?tab=profile'>
@@ -66,7 +63,7 @@ export default function DashSidebar() {
               Profile
             </Sidebar.Item>
           </Link>
-
+          {currentUser.isAdmin && (
           <Link to='/dashboard?tab=AddPackage'>
             <Sidebar.Item
               active={tab === 'AddPackage'} 
@@ -76,7 +73,7 @@ export default function DashSidebar() {
               Package
             </Sidebar.Item>
             </Link>
-
+          )}
           {currentUser.isAdmin && (
             <Link to='/dashboard?tab=users'>
               <Sidebar.Item
