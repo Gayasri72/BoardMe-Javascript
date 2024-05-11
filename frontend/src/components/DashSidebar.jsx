@@ -1,5 +1,6 @@
 import { Sidebar } from 'flowbite-react';
 import { HiUser, HiArrowSmRight,  HiChartPie, HiOutlineUserGroup } from 'react-icons/hi';
+import { TbPackageExport } from "react-icons/tb";
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { signoutSuccess } from '../redux/user/userSlice';
@@ -49,16 +50,10 @@ export default function DashSidebar() {
               </Sidebar.Item>
             </Link>,
 
-            <Link to='/dashboard?tab=AddPackage'>
-            <Sidebar.Item
-              active={tab === 'AddPackage'} 
-              as='div'
-            >
-              Package
-            </Sidebar.Item>
-            </Link>
+            
 
           )}
+
           <Link to='/dashboard?tab=profile'>
             <Sidebar.Item
               active={tab === 'profile'}
@@ -70,6 +65,17 @@ export default function DashSidebar() {
               Profile
             </Sidebar.Item>
           </Link>
+
+          <Link to='/dashboard?tab=AddPackage'>
+            <Sidebar.Item
+              active={tab === 'AddPackage'} 
+              icon={TbPackageExport}
+              as='div'
+            >
+              Package
+            </Sidebar.Item>
+            </Link>
+
           {currentUser.isAdmin && (
             <Link to='/dashboard?tab=users'>
               <Sidebar.Item
