@@ -1,16 +1,16 @@
-import { Sidebar } from "flowbite-react";
-import {
-  HiUser,
-  HiArrowSmRight,
-  HiChartPie,
-  HiOutlineUserGroup,
-  //HiViewGrid,
-} from "react-icons/hi";
-import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { signoutSuccess } from "../redux/user/userSlice";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+
+
+
+import { Sidebar } from 'flowbite-react';
+import { HiUser, HiArrowSmRight,  HiChartPie, HiOutlineUserGroup } from 'react-icons/hi';
+import { TbPackageExport } from "react-icons/tb";
+import { IoMdContact } from "react-icons/io";
+import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { signoutSuccess } from '../redux/user/userSlice';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+
 export default function DashSidebar() {
   const { currentUser } = useSelector((state) => state.user);
   const location = useLocation();
@@ -44,6 +44,20 @@ export default function DashSidebar() {
     <Sidebar className="w-full md:w-56">
       <Sidebar.Items>
         <Sidebar.ItemGroup>
+
+        {currentUser && currentUser.isAdmin && (
+            <Link to='/dashboard?tab=dash'>
+              <Sidebar.Item
+                active={tab === 'dash' || !tab}
+                icon={HiChartPie}
+                as='div'
+              >
+                Dashboard
+              </Sidebar.Item>
+            </Link>, 
+          )}
+
+          <Link to='/dashboard?tab=profile'>
           {currentUser &&
             currentUser.isAdmin &&
             ((
@@ -75,6 +89,24 @@ export default function DashSidebar() {
               Profile
             </Sidebar.Item>
           </Link>
+
+          {currentUser.isAdmin && (
+          <Link to='/dashboard?tab=AddPackage'>
+            <Sidebar.Item
+              active={tab === 'AddPackage'} 
+              icon={TbPackageExport}
+              as='div'
+            >
+              Package
+            </Sidebar.Item>
+
+          </Link>
+
+
+            </Link>
+          )}
+          
+
           {currentUser.isAdmin && (
             <Link to="/dashboard?tab=users">
               <Sidebar.Item
@@ -86,13 +118,31 @@ export default function DashSidebar() {
               </Sidebar.Item>
             </Link>
           )}
-          {currentUser.isAdmin && (
-            <Link to="/dashboard?tab=ContactManager">
-              <Sidebar.Item active={tab === "ContactManager"} as="div">
-                Contact Details
-              </Sidebar.Item>
-            </Link>
-          )}
+
+           {currentUser.isAdmin && (
+            <Link to='/dashboard?tab=ContactManager'>
+            <Sidebar.Item
+              active={tab === 'ContactManager'}
+              icon={IoMdContact}
+              as='div'
+            >
+              Contact Details
+            </Sidebar.Item>
+          </Link>
+           )}
+          
+           {!currentUser.isAdmin && (
+            
+            <Link to='/dashboard?tab=ContactUser'>
+            <Sidebar.Item
+              active={tab === 'ContactUser'}
+              as='div'
+            >
+              Contact Details
+            </Sidebar.Item>
+          </Link>
+            
+          
 
           {!currentUser.isAdmin && (
             <Link to="/dashboard?tab=ContactUser">
