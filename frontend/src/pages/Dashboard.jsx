@@ -9,8 +9,11 @@ import ContactUser from "../components/ContactUs/DashContact.User";
 
 import DashboardComp from '../components/DashboardComp';
 import PackageList from "../components/package/ShowPackage.jsx";
-import MyAds from "../components/Advertisement/MyAds.jsx";
+
 import Ads from "../components/Advertisement/AdminAds.jsx";
+import MyAds from "../components/Advertisement/MyAds.jsx";
+
+
 
 
 export default function Dashboard() {
@@ -38,7 +41,10 @@ export default function Dashboard() {
       {tab === 'ContactUser' && <ContactUser userEmail={userEmail} />}
       {tab === 'dash' && <DashboardComp />}
 
+      
+
       {tab === 'AddPackage' && <PackageList />}
+
       {tab === 'MyAds' && <MyAds/>}
       {tab === 'Ads' && <Ads/>}
 
