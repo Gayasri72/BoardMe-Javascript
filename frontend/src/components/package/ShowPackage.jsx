@@ -102,7 +102,7 @@ function ShowPackage() {
 
   const filteredData = dataList.filter((item) =>
     item.pac_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    item.price.includes(searchQuery)
+    item.price.toString().includes(searchQuery)
 );
 
 
