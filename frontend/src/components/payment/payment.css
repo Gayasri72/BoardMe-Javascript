@@ -1,0 +1,64 @@
+.payment-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.payment-card {
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    width: 1000px;
+    max-width: 90%;
+}
+
+.payment-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.payment-form {
+    margin-top: 20px;
+}
+
+.payment-group {
+    margin-bottom: 20px;
+}
+
+.payment-form input[type="text"] {
+    width: 95%;
+    padding: 5px;
+    border-radius: 7px;
+    border: 1px solid #dce3e8a2;
+}
+
+.payment-btn {
+    background-color: rgb(51, 161, 246);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.payment-btn:hover {
+    background-color: rgb(51, 161, 246);
+}
+
+.payment-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.payment-group {
+    flex: 1;
+    margin-right: 10px; /* Adjust the spacing between input fields */
+}
+
+.payment-group:last-child {
+    margin-right: 0; /* Remove margin from the last input field in a row */
+}

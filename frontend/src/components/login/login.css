@@ -1,0 +1,39 @@
+/* Login.css */
+.login-container {
+  width: 400px;
+  margin: auto; /* This will center the container horizontally */
+  margin-top: 100px; /* Adjust as needed */
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+  
+  .login-container h2 {
+    margin-bottom: 20px;
+  }
+  
+  .login-container input {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .login-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .error-message {
+    color: red;
+    margin-top: 10px;
+  }
+  
