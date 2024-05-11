@@ -6,7 +6,9 @@ import authRouter from "./routes/auth.route.js";
 import contactRouter from "./routes/contact.routes.js";
 import cookieParser from "cookie-parser";
 import packageRouter from "./routes/package.route.js"
-
+import Advertisement from "./routes/Advertisement.route.js";
+import morgan from "morgan";
+import cors from 'cors'
 dotenv.config();
 mongoose
   .connect(process.env.MONGO)
@@ -27,7 +29,7 @@ app.listen(3000, () => {
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/package", packageRouter);
-
+app.use("/api/advertisement", Advertisement);
 app.use("/api/contact", contactRouter);
 
 
