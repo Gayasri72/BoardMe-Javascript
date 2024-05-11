@@ -7,16 +7,13 @@ import { Spaces } from "./pages/Spaces";
 import { Events } from "./pages/Events";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
-import PrivateRoute from './components/PrivateRoute';
+import PrivateRoute from "./components/PrivateRoute";
 
 import ContactUs from "./pages/ContactUs/ContactUs";
 
+import Dashboard from "./pages/Dashboard";
 
-import Dashboard from './pages/Dashboard'
-
-import MyAds from "./pages/MyAds";
-//import Search from "./pages/Search";
-
+import Search from "./pages/Search";
 
 import About from "./pages/About";
 import Packages from "./pages/Packages";
@@ -31,22 +28,21 @@ export const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/aboutus" element={<About/>} />
+        <Route path="/aboutus" element={<About />} />
         <Route path="/spaces" element={<Spaces />} />
-        <Route path="/services" element={<Services/>} />
-        <Route path="/myads" element={<MyAds/>} />
+        <Route path="/services" element={<Services />} />
+        
         <Route path="/events" element={<Events />} />
         <Route path="/packages" element={<Packages />} />
-        {/* //<Route path="/search" element={<Search />} /> */}
+        <Route path="/search" element={<Search />} />
         <Route path="/ContactUs" element={<ContactUs />} />
         <Route element={<PrivateRoute />}>
-          <Route path='/advertisments' element={<Createadvertisement/>} />
-        </Route>
-        
-        <Route element={<PrivateRoute />}>
-          <Route path='/dashboard' element={<Dashboard />} />
+          <Route path="/advertisments" element={<Createadvertisement />} />
         </Route>
 
+        <Route element={<PrivateRoute />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
       </Routes>
       <Footer />
     </BrowserRouter>

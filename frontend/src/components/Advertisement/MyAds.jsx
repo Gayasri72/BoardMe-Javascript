@@ -1,14 +1,14 @@
 import axios from 'axios'
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage'
-import { Alert, Button, TextInput } from 'flowbite-react'
+import { Alert, Button } from 'flowbite-react'
 import React, { useEffect, useState } from 'react'
 import { CircularProgressbar } from 'react-circular-progressbar'
 import ReactQuill from 'react-quill'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { app } from '../firebase'
+import { app } from '../../firebase'
 
-const Ads = () => {
+const MyAds = () => {
     const [myAds, setAds] = useState([])
     const { currentUser } = useSelector((state) => state.user)
     const [selectedAd, setSelectedAd] = useState({});
@@ -19,13 +19,12 @@ const Ads = () => {
     const [imageUploadError, setImageUploadError] = useState(null);
     const [formData, setFormData] = useState({});
     const [publishError, setPublishError] = useState(null);
-    const [searchTerm, setSearch] = useState('')
     const navigate = useNavigate();
 
 
     const getAds = async () => {
         try {
-            const resp = await axios.get(`http://localhost:3000/api/Advertisement/search?searchTerm=${searchTerm}`)
+            const resp = await axios.get(`http://localhost:3000/api/Advertisement/getAdvertisements?userId=${currentUser?._id}`)
             console.log(resp.data);
             setAds(resp?.data?.advertisements)
         } catch (error) {
@@ -33,6 +32,15 @@ const Ads = () => {
         }
     }
 
+    const getAllAds = async () => {
+        try {
+            const resp = await axios.get(`http://localhost:3000/api/Advertisement/getAdvertisements/search`)
+            console.log(resp.data);
+            setAds(resp?.data?.advertisements)
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     const deleteAdd = async (id) => {
         try {
@@ -58,7 +66,7 @@ const Ads = () => {
 
     useEffect(() => {
         getAds()
-    }, [searchTerm])
+    }, [])
 
     const handleSelect = (ad) => {
         setSelectedAd(ad);
@@ -115,39 +123,34 @@ const Ads = () => {
         }
     };
     return (
-        <div className='px-5 w-full'>
-            <h1 className='text-black bg-purple-400 px-4 py-2 w-max rounded-xl ml-5 text-2xl font-extrabold my-5'>Admin</h1>
-
-            <TextInput type="text" onChange={e=>setSearch(e.target.value)} placeholder='Search'/>
-            <div className='w-full'>
+        <div className='px-5'>
+            <h1 className='text-black bg-purple-400 px-4 py-2 w-max rounded-xl ml-5 text-2xl font-extrabold my-5'>My Ads</h1>
+            <div>
                 {
                     myAds.map((ad) => (
+                        <>
+                            <div className={`flex items-stretch gap-3 p-10 bg-gray-200 rounded-xl  w-1/2 mx-auto`}>
+                                <div className='w-1/3 aspect-square'>
+                                    <img src={ad.image} className='w-full h-full object-cover' />
+                                </div>
+                                <div className='bg-white p-3 h-52 w-full'>
+                                    <h2 className='text-2xl font-semibold capitalize mb-4'>{ad.title}</h2>
+                                    <div dangerouslySetInnerHTML={{ __html: ad.content }} />
+                                </div>
 
-                        <div className={`flex items-stretch gap-3 p-10 bg-gray-200 rounded-xl w-full mx-auto relative my-5`}>
-                            <div className='w-1/3 aspect-square'>
-                                {new Date(ad?.createdAt).toDateString()}
                             </div>
-                            <div className='w-1/3 aspect-square'>
-                                <img src={ad.image} className='w-full h-full object-cover' />
+                            <div className=' w-1/2 mx-auto flex flex-col space-y-3 my-4 text-right justify-end items-end'>
+                                <button className='px-4 py-2 text-white bg-green-500 w-32' onClick={() => handleSelect(ad)}>Update</button>
+                                <button className='px-4 py-2 text-white bg-red-500  w-32' onClick={() => deleteAdd(ad._id)}>Delete</button>
                             </div>
-                            <div className='p-3 h-52 w-full'>
-                                <h2 className='text-2xl font-semibold capitalize mb-4'>{ad.title}</h2>
-                                <div dangerouslySetInnerHTML={{ __html: ad.content }} />
-                            </div>
-                            <div className=' w-1/2 mx-auto flex gap-5 space-y-3 my-4 text-right justify-end items-end absolute top-2 right-5'>
-                                <button className='px-4 py-2 text-white bg-green-500 w-32 rounded-md' onClick={() => handleSelect(ad)}>Update</button>
-                                <button className='px-4 py-2 text-white bg-red-500  w-32 rounded-md' onClick={() => deleteAdd(ad._id)}>Delete</button>
-                            </div>
-                        </div>
-
-
+                        </>
                     ))
                 }
             </div>
             {
 
 
-                isOpen && <div className='fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-10 shadow-xl border z-50 h-[80vh] overflow-y-scroll'>
+                isOpen && <div className='fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-10 shadow-xl border z-50 h-[80vh] overflow-scroll'>
                     <div className='flex items-center justify-end'>
                         <button className='text-2xl font-semibold' onClick={() => setOpen(false)}>X</button>
                     </div>
@@ -212,4 +215,4 @@ const Ads = () => {
     )
 }
 
-export default Ads
+export default MyAds
