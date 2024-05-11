@@ -81,7 +81,7 @@ export default function Createadvertisement() {
             if (res.status === 201) {
                 alert('success')
                 setPublishError(null);
-                navigate(`/myads`);
+                navigate(`/services`);
             }
         } catch (error) {
             setPublishError(error?.response?.data?.message);

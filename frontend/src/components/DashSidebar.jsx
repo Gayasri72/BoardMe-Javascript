@@ -4,6 +4,7 @@ import {
   HiArrowSmRight,
   HiChartPie,
   HiOutlineUserGroup,
+  //HiViewGrid,
 } from "react-icons/hi";
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -106,6 +107,7 @@ export default function DashSidebar() {
               <Sidebar.Item active={tab === "Ads"} as="div">
                 Ads details
               </Sidebar.Item>
+              {/* icon={HiViewGrid} */}
             </Link>
           )}
 
@@ -114,6 +116,7 @@ export default function DashSidebar() {
               <Sidebar.Item active={tab === "MyAds"} as="div">
                 My ads
               </Sidebar.Item>
+              {/* icon={HiViewGrid} */}
             </Link>
           )}
 
