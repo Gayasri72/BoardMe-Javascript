@@ -4,6 +4,7 @@ import errorHandler from "../utils/error.js";
 import jwt from "jsonwebtoken";
 import nodemailer from 'nodemailer';
 
+//sign up function
 export const signup = async (req, res, next) => {
   const { username, email, password } = req.body;
 
@@ -16,6 +17,13 @@ export const signup = async (req, res, next) => {
     password === ""
   ) {
     return next(errorHandler(400, "All fields are required"));
+  }
+  if (!/\b[A-Za-z0-9._%+-]+@gmail\.com\b/.test(email)) {
+    return next(errorHandler(400, "Email must be a valid Gmail address"));
+  }
+
+  if (password.length < 6) {
+    return next(errorHandler(400, "Password must be at least 6 characters long"));
   }
 
   const hashedPassword = bcryptjs.hashSync(password, 10);
@@ -34,6 +42,7 @@ export const signup = async (req, res, next) => {
   }
 };
 
+//sign in function
 export const signin = async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -72,6 +81,7 @@ export const signin = async (req, res, next) => {
   }
 };
 
+// google auth function
 export const google = async (req, res, next) => {
   const { email, name, googlePhotoUrl } = req.body;
   try {
@@ -128,6 +138,7 @@ export const signOut = async (req, res, next) => {
   }
 };
 
+//forget password function
 export const forgetPass = async (req, res, next) => {
   const { email } = req.body;
   try {
@@ -152,7 +163,7 @@ export const forgetPass = async (req, res, next) => {
     });
 
     var mailOptions = {
-      from: 'youremail@gmail.com',
+      from: 'boardme@gmail.com',
       to: email, // Sending the email to the user's email address
       subject: 'Reset Password', // Subject of the email
       text: `Click the link to reset your password: ${link}`, // Email body
