@@ -104,7 +104,7 @@ export default function DashSidebar() {
             <Sidebar.Item
               active={tab === 'ContactUser'}
               as='div'
-              icon={BiSolidContact}
+              icon={IoMdContact}
             >
               Contact Details
             </Sidebar.Item>
