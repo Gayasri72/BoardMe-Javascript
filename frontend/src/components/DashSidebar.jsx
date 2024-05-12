@@ -1,3 +1,4 @@
+
 import { Sidebar } from 'flowbite-react';
 import { HiUser, HiArrowSmRight, HiChartPie, HiOutlineUserGroup,HiOutlineGlobe ,HiBookmark,HiCurrencyDollar,HiLightBulb} from 'react-icons/hi';
 import { TbPackageExport } from "react-icons/tb";
@@ -117,6 +118,7 @@ export default function DashSidebar() {
               >
                 All Ads
               </Sidebar.Item>
+              {/* icon={HiViewGrid} */}
             </Link>
           )}
 
@@ -129,6 +131,7 @@ export default function DashSidebar() {
               >
                 My ads
               </Sidebar.Item>
+              {/* icon={HiViewGrid} */}
             </Link>
           )}
 {/* not implemented */}
