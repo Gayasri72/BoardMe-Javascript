@@ -1,5 +1,5 @@
 import { Sidebar } from 'flowbite-react';
-import { HiUser, HiArrowSmRight, HiChartPie, HiOutlineUserGroup } from 'react-icons/hi';
+import { HiUser, HiArrowSmRight, HiChartPie, HiOutlineUserGroup,HiOutlineGlobe ,HiBookmark,HiCurrencyDollar,HiLightBulb} from 'react-icons/hi';
 import { TbPackageExport } from "react-icons/tb";
 import { IoMdContact } from "react-icons/io";
 import { useEffect, useState } from 'react';
@@ -96,32 +96,84 @@ export default function DashSidebar() {
               </Sidebar.Item>
             </Link>
           )}
+
           {!currentUser.isAdmin && (
+             <Link to='/dashboard?tab=ContactUser'>
             <Sidebar.Item
               active={tab === 'ContactUser'}
+              icon={IoMdContact}
               as='div'
             >
-              Contact Details
+              My reviews
             </Sidebar.Item>
+            </Link>
           )}
           {currentUser.isAdmin && (
             <Link to="/dashboard?tab=Ads">
               <Sidebar.Item
                 active={tab === "Ads"}
+                icon={HiOutlineGlobe }
                 as="div"
               >
-                Ads details
+                All Ads
               </Sidebar.Item>
             </Link>
           )}
+
           {!currentUser.isAdmin && (
             <Link to="/dashboard?tab=MyAds">
               <Sidebar.Item
                 active={tab === "MyAds"}
+                icon={HiOutlineGlobe }
                 as="div"
               >
                 My ads
               </Sidebar.Item>
+            </Link>
+          )}
+{/* not implemented */}
+        {!currentUser.isAdmin && (
+             <Link to='/dashboard?tab='>
+            <Sidebar.Item
+              active={tab === ''}
+              icon={IoMdContact}
+              as='div'
+            >
+              My Listings
+            </Sidebar.Item>
+            </Link>
+          )}
+          {!currentUser.isAdmin && (
+             <Link to='/dashboard?tab='>
+            <Sidebar.Item
+              active={tab === ''}
+              icon={HiBookmark}
+              as='div'
+            >
+              My Bookings
+            </Sidebar.Item>
+            </Link>
+          )}
+          {!currentUser.isAdmin && (
+             <Link to='/dashboard?tab='>
+            <Sidebar.Item
+              active={tab === ''}
+              icon={HiLightBulb}
+              as='div'
+            >
+              My Events
+            </Sidebar.Item>
+            </Link>
+          )}
+          {!currentUser.isAdmin && (
+             <Link to='/dashboard?tab='>
+            <Sidebar.Item
+              active={tab === ''}
+              icon={HiCurrencyDollar}
+              as='div'
+            >
+              My payments
+            </Sidebar.Item>
             </Link>
           )}
           <Sidebar.Item

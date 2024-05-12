@@ -5,22 +5,51 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Reset Password</title>
-  <!-- Include Tailwind CSS -->
+  <!-- include tailwind css -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <script>
     var status = '<%- JSON.stringify(status) %>';
 
     if (JSON.parse(status) == "verified") {
       if (confirm("Do you want to login?")) {
-        window.location.href = "http://localhost:5173/signin";
+        window.location.href = "http://localhost:5173/sign-in";
       }
     }
+
+    //validations
+
+    function validateForm() {
+      var password = document.getElementById("password").value;
+      var confirmPassword = document.getElementById("confirm-password").value;
+
+      // Check if any field is empty
+      if (password === "" || confirmPassword === "") {
+        alert("All fields are required");
+        return false;
+      }
+
+      // Check if password is at least 6 characters long
+      if (password.length < 6) {
+        alert("Password must be at least 6 characters long");
+        return false;
+      }
+
+      // Check if passwords match
+      if (password !== confirmPassword) {
+        alert("Passwords do not match");
+        return false;
+      }
+
+      return true;
+    }
+
   </script>
 </head>
 <body class="bg-gray-100 h-screen flex flex-col justify-center items-center">
   <h1 class="text-3xl font-bold mb-6">Reset Password</h1>
   <h2 class="text-lg mb-4"><%= email %></h2>
-  <form action="" method="post" class="bg-white p-6 rounded-lg shadow-md">
+  <form action="" method="post" onsubmit="return validateForm()" class="bg-white p-6 rounded-lg shadow-md">
+
     <input type="password" name="password" id="password" placeholder="Password" class="w-full border border-gray-300 rounded-lg p-2 mb-2" />
     <input type="password" name="confirm-password" id="confirm-password" placeholder="Confirm Password" class="w-full border border-gray-300 rounded-lg p-2 mb-4" />
     <input type="submit" value="Submit" class="bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg cursor-pointer hover:bg-blue-600" />
