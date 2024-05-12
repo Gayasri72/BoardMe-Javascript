@@ -103,7 +103,7 @@ export default function DashSidebar() {
           </Link>
 
 
-            </Link>
+          
           )}
           
 
@@ -141,6 +141,7 @@ export default function DashSidebar() {
               Contact Details
             </Sidebar.Item>
           </Link>
+           )}
             
           
 
