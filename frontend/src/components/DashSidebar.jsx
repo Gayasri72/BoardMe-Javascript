@@ -2,11 +2,13 @@
 import { Sidebar } from 'flowbite-react';
 import { HiUser, HiArrowSmRight, HiChartPie, HiOutlineUserGroup } from 'react-icons/hi';
 import { TbPackageExport } from "react-icons/tb";
-import { IoMdContact } from "react-icons/io";
+import { IoMdContact, } from "react-icons/io";
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { signoutSuccess } from '../redux/user/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
+
+
 
 export default function DashSidebar() {
   const { currentUser } = useSelector((state) => state.user);
@@ -102,6 +104,7 @@ export default function DashSidebar() {
             <Sidebar.Item
               active={tab === 'ContactUser'}
               as='div'
+              icon={BiSolidContact}
             >
               Contact Details
             </Sidebar.Item>

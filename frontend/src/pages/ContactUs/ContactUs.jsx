@@ -29,6 +29,8 @@ const ContactUsForm = () => {
         message: '',
         satisfaction: 'Yes',
       });
+
+  
     } catch (error) {
       setMessage('There was an error sending your message. Please try again later.');
       setIsError(true);
