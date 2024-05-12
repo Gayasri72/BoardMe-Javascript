@@ -6,7 +6,7 @@ import { CircularProgressbar } from 'react-circular-progressbar'
 import ReactQuill from 'react-quill'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { app } from 'E:/BoardMe-Javascript/frontend/src/firebase.js'
+import { app } from 'F:/2nd yr 2nd sem/New folder/BoardMe-Javascript/frontend/src/firebase.js'
 
 const MyAds = () => {
     const [myAds, setAds] = useState([])

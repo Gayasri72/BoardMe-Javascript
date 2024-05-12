@@ -18,6 +18,7 @@ const AddPackage = ({ handleClose, formData, updateData }) => {
     setPackageDetails({ ...packageDetails, [name]: value });
   };
 
+  //validation
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Validation check for price

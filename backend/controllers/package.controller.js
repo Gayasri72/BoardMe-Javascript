@@ -43,7 +43,7 @@ const packageController = {
     async updatePackage(req, res, next) {
         try {
             const packageId = req.params.id;
-            const { pac_name, features, price } = req.body; 
+            const { pac_name, features, price } = req.body;
             const updatedPackage = await Package.findByIdAndUpdate(packageId, {
                 pac_name,
                 features,
