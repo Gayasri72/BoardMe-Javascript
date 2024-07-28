@@ -179,6 +179,18 @@ export default function DashSidebar() {
             </Sidebar.Item>
             </Link>
           )}
+           {!currentUser.isAdmin && (
+            <Link to="/dashboard?tab=MyViva">
+              <Sidebar.Item
+                active={tab === "MyViva"}
+                icon={HiOutlineGlobe }
+                as="div"
+              >
+                My Viva
+              </Sidebar.Item>
+              {/* icon={HiViewGrid} */}
+            </Link>
+          )}
           <Sidebar.Item
             icon={HiArrowSmRight}
             className="cursor-pointer"

@@ -12,6 +12,7 @@ import bcrypt from "bcryptjs";
 import Advertisement from "./routes/Advertisement.route.js";
 import morgan from "morgan";
 import cors from 'cors'
+import Viva from './routes/viva.routes.js'
 
 dotenv.config();
 mongoose
@@ -38,10 +39,9 @@ app.set('view engine', 'ejs');
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/package", packageRouter);
-
 app.use("/api/advertisement", Advertisement);
-
 app.use("/api/contact", contactRouter);
+app.use("/api/viva",Viva)
 
 //reset password function
 app.get("/reset-password/:id/:token", async (req, res) => {

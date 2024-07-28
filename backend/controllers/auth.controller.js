@@ -53,7 +53,7 @@ export const signin = async (req, res, next) => {
   try {
     const validUser = await User.findOne({ email });
     if (!validUser) {
-      return next(errorHandler(404, "User not found"));
+      return next(errorHandler(404, "Invalid credentials"));
     }
     const validPassword = bcryptjs.compareSync(password, validUser.password);
     if (!validPassword) {
@@ -151,7 +151,7 @@ export const forgetPass = async (req, res, next) => {
       expiresIn: "5m",
     });
     const link = `http://localhost:3000/reset-password/${oldUser._id}/${token}`;
-    console.log(link);
+    // console.log(link);
     
     // Setting up nodemailer
     var transporter = nodemailer.createTransport({
